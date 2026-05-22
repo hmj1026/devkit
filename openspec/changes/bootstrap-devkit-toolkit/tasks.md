@@ -1,6 +1,6 @@
 ## 1. Wave 0 — Bootstrap
 
-- [ ] 1.1 在 `/Users/paul/Project/ttfw/` 建立 `composer.json`：name `hmj1026/devkit`、PSR-4 `Devkit\` → `src/`、PHP `^7.2.5 || ^8.0`、require psr/log + psr/simple-cache + psr/http-message + psr/http-client + psr/http-factory + monolog/monolog ^2.9 + guzzlehttp/guzzle ^7.0 + league/flysystem ^2.0 || ^3.0 + elasticsearch/elasticsearch ^7.17 + butschster/meta-tags ^2.1 + jenssegers/agent ^2.0
+- [x] 1.1 在 `/Users/paul/Project/devkit/` 建立 `composer.json`:name `hmj1026/devkit`、PSR-4 `Devkit\` → `src/`、PHP `^7.2.5 || ^8.0`、require psr/log + psr/simple-cache + psr/http-message + psr/http-client + psr/http-factory + monolog/monolog ^2.9 + guzzlehttp/guzzle ^7.0 + league/flysystem `^1.1 || ^2.0 || ^3.0` (含 v1 以涵蓋 Laravel 6/7/8) + elasticsearch/elasticsearch ^7.17 + butschster/meta-tags ^2.1 + jenssegers/agent ^2.0
 - [ ] 1.2 補 require-dev：orchestra/testbench、phpunit/phpunit、mockery/mockery、league/flysystem-memory、laravel/framework（覆蓋 6 → 11 矩陣）
 - [ ] 1.3 撰寫 `phpunit.xml`：兩個 testsuite `core`（純 PHP）與 `laravel`（Orchestra Testbench）
 - [ ] 1.4 撰寫 `.github/workflows/tests.yml`：matrix PHP 7.2.5/7.3/7.4/8.0/8.1/8.2 × Laravel 6/7/8/9/10/11，過濾不相容組合

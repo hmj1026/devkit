@@ -11,12 +11,20 @@
 - **WHEN** the default director key in config is `'file'` and code calls `$manager->upload($uploadedFile)`
 - **THEN** the call is proxied to `FileDirector::upload($uploadedFile)`
 
-### Requirement: Flysystem 3 Filesystem Operator
-Directors SHALL accept a `League\Flysystem\FilesystemOperator` instance for the storage layer, replacing the original Laravel Storage facade dependency.
+### Requirement: Flysystem 1/2/3 Filesystem Abstraction
+Directors SHALL accept a storage handle that works across Flysystem v1, v2, and v3 (`league/flysystem ^1.1 || ^2.0 || ^3.0`), so the module is installable on Laravel 6/7/8 (flysystem v1) as well as Laravel 9+ (flysystem v3). An internal adapter SHALL normalise the API differences between `League\Flysystem\FilesystemInterface` (v1) and `League\Flysystem\FilesystemOperator` (v2/v3) — write/read/delete signatures, visibility constants, and exception classes.
 
-#### Scenario: In-memory upload for testing
-- **WHEN** a director is configured with `League\Flysystem\InMemory\InMemoryFilesystemAdapter` and code uploads a file
+#### Scenario: In-memory upload on Flysystem v2/v3
+- **WHEN** a director is configured with `League\Flysystem\InMemory\InMemoryFilesystemAdapter` (v2/v3) and code uploads a file
 - **THEN** the file content is readable from the in-memory adapter without touching disk
+
+#### Scenario: In-memory upload on Flysystem v1
+- **WHEN** a director is configured with `League\Flysystem\Memory\MemoryAdapter` (v1 via `league/flysystem-memory ^1.0`) and code uploads a file
+- **THEN** the file content is readable from the in-memory adapter without touching disk, with the v1 API differences (e.g. `write()` boolean return) absorbed by the internal adapter
+
+#### Scenario: Visibility constant mapped across versions
+- **WHEN** code requests visibility `'public'`
+- **THEN** the adapter writes `'public'` (v1/v2) or `Visibility::PUBLIC` (v3) to the underlying filesystem, transparently to the caller
 
 ### Requirement: MIME and Size Validation
 The director SHALL validate uploaded file MIME type against an `allowMimeTypes` list and reject files exceeding `allowFileSize` bytes.

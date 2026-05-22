@@ -63,15 +63,20 @@
 
 **Trade-off**：失去 Monolog 3 的 LogRecord readonly。v2 (PHP 8.1+) 可升級。
 
-### D4. Flysystem 2/3 並存
-**選擇**：`league/flysystem ^2.0 || ^3.0`，FileDirector type-hint `League\Flysystem\FilesystemOperator`（v2/v3 共通介面）
+### D4. Flysystem 1/2/3 三代並存
+**選擇**:`league/flysystem ^1.1 || ^2.0 || ^3.0`,FileDirector 接受跨版本的 storage 抽象(不直接 type-hint `FilesystemOperator`,而是包一層 internal adapter 處理 v1 `FilesystemInterface` vs v2/v3 `FilesystemOperator`)。
 
-**理由**：
-- Flysystem v3 需 PHP 7.4+；v1 PHP 7.2 floor 環境用 v2
-- `FilesystemOperator` 介面在 v2 引入，是 v3 也用的契約
-- composer 依消費端 PHP 版本 auto resolve
+**理由**:
+- Laravel 6/7/8 內建仰賴 `league/flysystem ^1.x`,要支援這些 Laravel 版本就必須含 v1
+- Laravel 9+ 用 flysystem 3.x;Flysystem v3 需 PHP 7.4+,v1/v2 涵蓋 PHP 7.2.5 floor
+- composer 依消費端 Laravel + PHP 版本 auto resolve
 
-**Trade-off**：visibility 常數 v2 為字串、v3 為列舉，需做雙向映射層。
+**Trade-off**:
+- file-uploader 需多一層 adapter 抹平 v1 `FilesystemInterface` 與 v2/v3 `FilesystemOperator` 的方法差異(write/read/delete 簽名、visibility 常數、exception 類型)
+- visibility 常數:v1 字串、v2 字串(class const)、v3 列舉,需做三向映射層
+- v1 的某些方法(`writeStream` 回 bool vs v2/v3 throw)需 try/catch 包裝
+
+**v2 of devkit**:當 PHP floor 拉到 ^8.1、Laravel floor 拉到 ^9.0 時,可以 drop v1 支援,回到單純的 `^3.0` 約束。
 
 ### D5. Audit logging 策略型抽象，v2 可改包 Spatie
 **選擇**：v1 自建 `AbstractEntityChangeLogger` + `LogTargetContract` + `EloquentLogTarget` / `ElasticsearchLogTarget`；v2 (PHP 8.1+) 可改為包 `spatie/laravel-activitylog ^4.0` 作為底層 change-capture engine。

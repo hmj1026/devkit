@@ -19,7 +19,7 @@ The package SHALL be named `hmj1026/devkit` with PSR-4 autoload mapping `Devkit\
 The package SHALL pin runtime dependencies to versions compatible with both ends of the PHP range (7.2.5 → 8.2):
 - `monolog/monolog ^2.9` (3.x requires PHP 8.1; deferred to v2)
 - `guzzlehttp/guzzle ^7.0`
-- `league/flysystem ^2.0 || ^3.0` (v2 supports PHP 7.2, v3 requires 7.4+; consumer-side composer resolves the right one)
+- `league/flysystem ^1.1 || ^2.0 || ^3.0` (v1 for Laravel 6/7/8 consumers, v2 for PHP 7.2+, v3 for PHP 7.4+ and Laravel 9+; composer resolves per consumer). The file-uploader module abstracts over all three API generations.
 - `elasticsearch/elasticsearch ^7.17` (8.x requires PHP 7.4 and Elastic License v2)
 - `butschster/meta-tags ^2.1`
 - `jenssegers/agent ^2.0`

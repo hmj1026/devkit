@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+         bootstrap="vendor/autoload.php"
+         colors="true"
+         verbose="true"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         convertDeprecationsToExceptions="false"
+         stopOnFailure="false"
+         beStrictAboutTestsThatDoNotTestAnything="true">
+    <testsuites>
+        <testsuite name="core">
+            <directory suffix="Test.php">tests/Core</directory>
+            <directory suffix="Test.php">tests/Database</directory>
+            <directory suffix="Test.php">tests/Http</directory>
+            <directory suffix="Test.php">tests/Storage</directory>
+            <directory suffix="Test.php">tests/Search</directory>
+            <directory suffix="Test.php">tests/Messaging</directory>
+            <directory suffix="Test.php">tests/Logging</directory>
+            <directory suffix="Test.php">tests/Ui</directory>
+        </testsuite>
+        <testsuite name="laravel">
+            <directory suffix="Test.php">tests/Laravel</directory>
+        </testsuite>
+    </testsuites>
+    <coverage processUncoveredFiles="true">
+        <include>
+            <directory suffix=".php">src</directory>
+        </include>
+        <exclude>
+            <directory>src/Laravel/Facades</directory>
+        </exclude>
+    </coverage>
+    <php>
+        <env name="APP_ENV" value="testing"/>
+        <env name="DB_CONNECTION" value="sqlite"/>
+        <env name="DB_DATABASE" value=":memory:"/>
+    </php>
+</phpunit>

@@ -55,10 +55,10 @@
 
 ## Impact
 
-- **新建 packagist 套件 `hmj1026/devkit`**，採 MIT License，git repo 在 `/Users/paul/Project/ttfw/`
+- **新建 packagist 套件 `hmj1026/devkit`**，採 MIT License，git repo 在 `/Users/paul/Project/devkit/`
 - **14 個新 OpenSpec capability spec** 寫入 `openspec/specs/`（透過本 change archive；較原方案少 3 個）
 - **第三方依賴**：
-  - 核心：`monolog/monolog ^2.9`、`guzzlehttp/guzzle ^7.0`、`league/flysystem ^2.0 || ^3.0`、`elasticsearch/elasticsearch ^7.17`、`butschster/meta-tags ^2.1`、`jenssegers/agent ^2.0`、PSR-3/7/16/17/18
+  - 核心：`monolog/monolog ^2.9`、`guzzlehttp/guzzle ^7.0`、`league/flysystem ^1.1 || ^2.0 || ^3.0`（v1/v2/v3 三代並存以涵蓋 Laravel 6→11 矩陣）、`elasticsearch/elasticsearch ^7.17`、`butschster/meta-tags ^2.1`、`jenssegers/agent ^2.0`、PSR-3/7/16/17/18
   - Laravel adapter 額外：`illuminate/support ^6.0 → ^11.0`、`illuminate/database`、`illuminate/queue`、`illuminate/notifications`、`aws/aws-sdk-php ^3.0`、`ramsey/uuid ^4.0`
   - require-dev：`orchestra/testbench`、`phpunit/phpunit`、`mockery/mockery`、`league/flysystem-memory`
 - **CI**：GitHub Actions matrix（PHP 7.2.5 / 7.4 / 8.0 / 8.1 / 8.2 × Laravel 6 → 11，依相容組合過濾）

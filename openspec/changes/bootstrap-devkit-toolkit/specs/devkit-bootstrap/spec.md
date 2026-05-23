@@ -21,7 +21,7 @@ The package SHALL pin runtime dependencies to versions compatible with both ends
 - `guzzlehttp/guzzle ^7.0`
 - `league/flysystem ^1.1 || ^2.0 || ^3.0` (v1 for Laravel 6/7/8 consumers, v2 for PHP 7.3+, v3 for PHP 7.4+ and Laravel 9+; composer resolves per consumer). The file-uploader module abstracts over all three API generations.
 - `elasticsearch/elasticsearch ^7.17` (requires PHP 7.3+; 8.x requires PHP 7.4 and Elastic License v2)
-- `butschster/meta-tags ^2.1`
+- `butschster/meta-tags ^2.1 || ^3.0` (v3 floors at PHP 8.0; Laravel 11 forces v3, earlier Laravel can resolve v2 or v3 — the Meta wrapper adapts per-version)
 - `jenssegers/agent ^2.0`
 - PSR-3/7/16/17/18 contract packages
 - Laravel range: `illuminate/support ^6.0 || ^7.0 || ^8.0 || ^9.0 || ^10.0 || ^11.0` (composer resolves per-PHP)
@@ -56,7 +56,7 @@ Incompatible cells are explicitly excluded:
 - PHP 7.3 × Laravel 9+ — Laravel 9 floors at PHP 8.0
 - Other combinations Composer's resolver rejects
 
-For Laravel 10+ cells the matrix step pins `monolog/monolog ^3.0`; earlier cells stay on `monolog/monolog ^2.9`.
+For Laravel 10+ cells the matrix step pins `monolog/monolog ^3.0`; earlier cells stay on `monolog/monolog ^2.9`. For Laravel 11 cells the matrix step pins `butschster/meta-tags ^3.0`; earlier cells stay on `butschster/meta-tags ^2.1`.
 
 #### Scenario: CI runs on push
 - **WHEN** a commit is pushed to the main branch

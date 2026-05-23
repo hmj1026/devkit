@@ -16,23 +16,23 @@ jobs:
       matrix:
         include:
           # PHP 7.3 → Laravel 6, 7 (PHP 7.2 excluded: elasticsearch/elasticsearch ^7.17 floors at PHP 7.3)
-          - { php: '7.3', laravel: '6.*', testbench: '4.*', phpunit: '^8.5 || ^9.6', monolog: '^2.9' }
-          - { php: '7.3', laravel: '7.*', testbench: '5.*', phpunit: '^8.5 || ^9.6', monolog: '^2.9' }
+          - { php: '7.3', laravel: '6.*', testbench: '4.*', phpunit: '^8.5 || ^9.6', monolog: '^2.9', meta_tags: '^2.1' }
+          - { php: '7.3', laravel: '7.*', testbench: '5.*', phpunit: '^8.5 || ^9.6', monolog: '^2.9', meta_tags: '^2.1' }
           # PHP 7.4 → Laravel 6, 7, 8
-          - { php: '7.4', laravel: '6.*', testbench: '4.*', phpunit: '^8.5 || ^9.6', monolog: '^2.9' }
-          - { php: '7.4', laravel: '7.*', testbench: '5.*', phpunit: '^8.5 || ^9.6', monolog: '^2.9' }
-          - { php: '7.4', laravel: '8.*', testbench: '6.*', phpunit: '^9.6', monolog: '^2.9' }
+          - { php: '7.4', laravel: '6.*', testbench: '4.*', phpunit: '^8.5 || ^9.6', monolog: '^2.9', meta_tags: '^2.1' }
+          - { php: '7.4', laravel: '7.*', testbench: '5.*', phpunit: '^8.5 || ^9.6', monolog: '^2.9', meta_tags: '^2.1' }
+          - { php: '7.4', laravel: '8.*', testbench: '6.*', phpunit: '^9.6', monolog: '^2.9', meta_tags: '^2.1' }
           # PHP 8.0 → Laravel 8, 9
-          - { php: '8.0', laravel: '8.*', testbench: '6.*', phpunit: '^9.6', monolog: '^2.9' }
-          - { php: '8.0', laravel: '9.*', testbench: '7.*', phpunit: '^9.6', monolog: '^2.9' }
+          - { php: '8.0', laravel: '8.*', testbench: '6.*', phpunit: '^9.6', monolog: '^2.9', meta_tags: '^2.1' }
+          - { php: '8.0', laravel: '9.*', testbench: '7.*', phpunit: '^9.6', monolog: '^2.9', meta_tags: '^2.1' }
           # PHP 8.1 → Laravel 8, 9, 10  (Laravel 10 requires monolog ^3.0)
-          - { php: '8.1', laravel: '8.*', testbench: '6.*', phpunit: '^9.6', monolog: '^2.9' }
-          - { php: '8.1', laravel: '9.*', testbench: '7.*', phpunit: '^9.6', monolog: '^2.9' }
-          - { php: '8.1', laravel: '10.*', testbench: '8.*', phpunit: '^9.6 || ^10.0', monolog: '^3.0' }
-          # PHP 8.2 → Laravel 9, 10, 11  (Laravel 10/11 require monolog ^3.0)
-          - { php: '8.2', laravel: '9.*', testbench: '7.*', phpunit: '^9.6', monolog: '^2.9' }
-          - { php: '8.2', laravel: '10.*', testbench: '8.*', phpunit: '^9.6 || ^10.0', monolog: '^3.0' }
-          - { php: '8.2', laravel: '11.*', testbench: '9.*', phpunit: '^10.5 || ^11.0', monolog: '^3.0' }
+          - { php: '8.1', laravel: '8.*', testbench: '6.*', phpunit: '^9.6', monolog: '^2.9', meta_tags: '^2.1' }
+          - { php: '8.1', laravel: '9.*', testbench: '7.*', phpunit: '^9.6', monolog: '^2.9', meta_tags: '^2.1' }
+          - { php: '8.1', laravel: '10.*', testbench: '8.*', phpunit: '^9.6 || ^10.0', monolog: '^3.0', meta_tags: '^2.1' }
+          # PHP 8.2 → Laravel 9, 10, 11  (Laravel 10/11 require monolog ^3.0; Laravel 11 requires butschster/meta-tags ^3.0)
+          - { php: '8.2', laravel: '9.*', testbench: '7.*', phpunit: '^9.6', monolog: '^2.9', meta_tags: '^2.1' }
+          - { php: '8.2', laravel: '10.*', testbench: '8.*', phpunit: '^9.6 || ^10.0', monolog: '^3.0', meta_tags: '^2.1' }
+          - { php: '8.2', laravel: '11.*', testbench: '9.*', phpunit: '^10.5 || ^11.0', monolog: '^3.0', meta_tags: '^3.0' }
 
     steps:
       - name: Checkout
@@ -63,7 +63,8 @@ jobs:
       - name: Install matrix dependencies
         run: |
           composer require --no-update \
-            "monolog/monolog:${{ matrix.monolog }}"
+            "monolog/monolog:${{ matrix.monolog }}" \
+            "butschster/meta-tags:${{ matrix.meta_tags }}"
           composer require --no-update --dev \
             "laravel/framework:${{ matrix.laravel }}" \
             "orchestra/testbench:${{ matrix.testbench }}" \

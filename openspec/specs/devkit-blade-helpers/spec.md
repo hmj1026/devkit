@@ -1,7 +1,7 @@
 # devkit-blade-helpers Specification
 
 ## Purpose
-Pure-PHP breadcrumb Trail and weight-sorted Meta tag manager (wrapping butschster/meta-tags v2), with Laravel facades/helpers/Blade directives.
+Pure-PHP breadcrumb Trail and weight-sorted Meta tag manager (wrapping butschster/meta-tags ^2.1 or ^3.0), with Laravel facades/helpers/Blade directives.
 
 ## Requirements
 
@@ -28,7 +28,7 @@ Pure-PHP breadcrumb Trail and weight-sorted Meta tag manager (wrapping butschste
 - **THEN** the result equals `'Home'`
 
 ### Requirement: Meta Tag Manager with Weight Ordering
-`Devkit\Ui\MetaTag\Meta` SHALL wrap `butschster/meta-tags ^2.1`, adding `addStyle()`, `addScript()`, and `addTag()` methods that accept an integer `weight` argument and render tags sorted ascending by weight.
+`Devkit\Ui\MetaTag\Meta` SHALL wrap `butschster/meta-tags ^2.1 || ^3.0` (the package range required by `composer.json`), adapting at autoload time to whichever major version Composer resolved, and adding `addStyle()`, `addScript()`, and `addTag()` methods that accept an integer `weight` argument and render tags sorted ascending by weight. The weight-sorting behaviour SHALL be identical under both v2 and v3 of the underlying package; subclass adapters or a runtime-detection helper SHALL absorb the v2 → v3 API differences (e.g. class renames, return-type widening).
 
 #### Scenario: Lower weight renders first
 - **WHEN** code calls `addScript('analytics', 'https://.../a.js', [], 'head', 100)` and `addScript('polyfill', 'https://.../p.js', [], 'head', 10)`
@@ -37,6 +37,10 @@ Pure-PHP breadcrumb Trail and weight-sorted Meta tag manager (wrapping butschste
 #### Scenario: Equal weight preserves insertion order
 - **WHEN** two scripts share weight `50` and are added in order A then B
 - **THEN** A renders before B
+
+#### Scenario: Works under butschster/meta-tags v3
+- **WHEN** the package is installed on PHP 8.2 + Laravel 11, which forces `butschster/meta-tags ^3.0`
+- **THEN** `addScript()` / `addStyle()` / `addTag()` / `appendTitle()` / `makeTitle()` / `getOpenGraphPackage()` all behave identically to the v2 path — weight ordering, title composition, and OG package lazy-creation are observable in the rendered HTML
 
 ### Requirement: Title Manipulation
 `Meta::appendTitle(?string $text)` SHALL append text to the existing title using a configurable separator; `makeTitle()` SHALL return the composed string. Null appends SHALL be no-ops.

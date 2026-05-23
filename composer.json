@@ -1,6 +1,6 @@
 {
     "name": "hmj1026/devkit",
-    "description": "Generic PHP/Laravel dev kit — unified entity audit logging, Http gateway, Elasticsearch toolkit, SMS dispatch, file uploader, Google Chat logger, and Laravel helpers. Targets PHP 7.2.5 → 8.x and Laravel 6 → 11.",
+    "description": "Generic PHP/Laravel dev kit — unified entity audit logging, Http gateway, Elasticsearch toolkit, SMS dispatch, file uploader, Google Chat logger, and Laravel helpers. Targets PHP 7.3 → 8.x and Laravel 6 → 11.",
     "type": "library",
     "license": "MIT",
     "keywords": [
@@ -17,7 +17,6 @@
     "authors": [
         {
             "name": "hmj1026",
-            "email": "hmj1026@gmail.com",
             "homepage": "https://github.com/hmj1026"
         }
     ],
@@ -35,21 +34,29 @@
         "elasticsearch/elasticsearch": "^7.17",
         "butschster/meta-tags": "^2.1 || ^3.0",
         "jenssegers/agent": "^2.0",
+        "aws/aws-sdk-php": "^3.0",
         "illuminate/support": "^6.0 || ^7.0 || ^8.0 || ^9.0 || ^10.0 || ^11.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^8.5 || ^9.6",
+        "friendsofphp/php-cs-fixer": "^3.0",
+        "laravel/framework": "^6.0 || ^7.0 || ^8.0 || ^9.0 || ^10.0 || ^11.0",
+        "league/flysystem-memory": "^1.0 || ^2.0 || ^3.0",
         "mockery/mockery": "^1.3 || ^1.5",
         "orchestra/testbench": "^4.0 || ^5.0 || ^6.0 || ^7.0 || ^8.0 || ^9.0",
-        "laravel/framework": "^6.0 || ^7.0 || ^8.0 || ^9.0 || ^10.0 || ^11.0",
-        "league/flysystem-memory": "^1.0 || ^2.0 || ^3.0"
+        "phpunit/phpunit": "^8.5 || ^9.6"
+    },
+    "suggest": {
+        "aws/aws-sdk-php": "Required only when signing Elasticsearch requests for AWS-managed domains via Devkit\\Search\\Foundation\\AwsSignedHandler (^3.0)."
     },
     "autoload": {
         "psr-4": {
             "Devkit\\": "src/"
         },
         "files": [
-            "src/Core/Support/helpers.php"
+            "src/Core/Support/helpers.php",
+            "src/Core/Validation/functions.php",
+            "src/Laravel/Http/Support/helpers.php",
+            "src/Laravel/Ui/Support/helpers.php"
         ]
     },
     "autoload-dev": {

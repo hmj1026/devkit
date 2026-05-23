@@ -6,7 +6,6 @@ use Devkit\Logging\GoogleChat\Concerns\HandlesGoogleChatCard;
 use Devkit\Logging\GoogleChat\Exception\GoogleChatLogWebHookUrlNotSettingException;
 use GuzzleHttp\Client as GuzzleClient;
 use Monolog\Handler\AbstractProcessingHandler;
-use Monolog\Level;
 use Monolog\LogRecord;
 use Psr\Http\Client\ClientInterface as Psr18ClientInterface;
 
@@ -37,7 +36,7 @@ class GoogleChatLogHandlerM3 extends AbstractProcessingHandler
         string $env = '',
         array $mentionMap = [],
         ?Psr18ClientInterface $httpClient = null,
-        int|string|Level $level = Level::Debug,
+        $level = null,
         bool $bubble = true
     ) {
         if ($webhookUrl === '') {
@@ -45,7 +44,7 @@ class GoogleChatLogHandlerM3 extends AbstractProcessingHandler
                 'GoogleChat webhook URL is required but was not provided to GoogleChatLogHandler.'
             );
         }
-        parent::__construct($level, $bubble);
+        parent::__construct($level === null ? \Monolog\Level::Debug : $level, $bubble);
         $this->initGoogleChatCard(
             $webhookUrl,
             $appName,

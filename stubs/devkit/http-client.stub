@@ -1,0 +1,9 @@
+<?php
+
+namespace {{ namespace }};
+
+use Devkit\Http\Client\Gateway;
+
+class {{ class }} extends Gateway
+{
+}

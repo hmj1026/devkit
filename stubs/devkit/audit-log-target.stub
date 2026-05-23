@@ -1,0 +1,12 @@
+<?php
+
+namespace {{ namespace }};
+
+use Devkit\Logging\Contract\LogTargetContract;
+
+class {{ class }} implements LogTargetContract
+{
+    public function save(array $entry)
+    {
+    }
+}

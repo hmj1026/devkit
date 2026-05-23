@@ -10,7 +10,7 @@
 
 **Goals:**
 - 單一 composer 套件 `hmj1026/devkit`，root namespace `Devkit\`
-- 廣 PHP / Laravel 相容：PHP `^7.2.5 || ^8.0`、Laravel `^6.0 || ^7.0 || ^8.0 || ^9.0 || ^10.0 || ^11.0`
+- 廣 PHP / Laravel 相容：PHP `^7.3 || ^8.0`、Laravel `^6.0 || ^7.0 || ^8.0 || ^9.0 || ^10.0 || ^11.0`
 - 核心類別不 `use Illuminate\*`，僅依賴 PSR 與中立第三方
 - Laravel 黏合層歸入 `Devkit\Laravel\*`（**無 `Bridge\` 中介層**）
 - 對外可發佈（MIT），不洩漏業務專屬整合
@@ -20,12 +20,12 @@
 - **快速開發優先**：低樣板、低 boilerplate、不強迫 Repository pattern
 
 **Non-Goals:**
-- 不支援 PHP < 7.2.5
+- 不支援 PHP < 7.3
 - 不採 elasticsearch-php 8.x（Elastic License v2 風險 + PHP 7.4 floor）
 - 不採 Monolog 3.x（PHP 8.1 floor 衝突）
 - 不重寫 SqsFifo 為 PSR queue（無對應規範）
 - 不內建任何 concrete SMS provider driver
-- 不採 PHP 8.1 native enum（v1 受 7.2 floor 限制；v2 計畫換）
+- 不採 PHP 8.1 native enum（v1 受 7.3 floor 限制；v2 計畫換）
 - **不提供 Repository pattern**（消費端用 Eloquent + Service / Action）
 - **不提供 ES Query Builder / Grammar 層**（消費端用 ES 原生 DSL）
 - **不提供 4 層 HTTP Client 抽象**（單一 Gateway class 即可）
@@ -58,7 +58,7 @@
 **選擇**：`monolog/monolog ^2.9`
 
 **理由**：
-- Monolog 3.0+ 需 PHP 8.1+；保留 v1 PHP 7.2 floor 必須鎖 2.x
+- Monolog 3.0+ 需 PHP 8.1+；保留 v1 PHP 7.3 floor 必須鎖 2.x
 - 修正原 google-chat-log handler `use Monolog\LogRecord;` + `write(array $record)` 同時存在的 bug
 
 **Trade-off**：失去 Monolog 3 的 LogRecord readonly。v2 (PHP 8.1+) 可升級。
@@ -68,7 +68,7 @@
 
 **理由**:
 - Laravel 6/7/8 內建仰賴 `league/flysystem ^1.x`,要支援這些 Laravel 版本就必須含 v1
-- Laravel 9+ 用 flysystem 3.x;Flysystem v3 需 PHP 7.4+,v1/v2 涵蓋 PHP 7.2.5 floor
+- Laravel 9+ 用 flysystem 3.x;Flysystem v3 需 PHP 7.4+,v1/v2 涵蓋 PHP 7.3 floor
 - composer 依消費端 Laravel + PHP 版本 auto resolve
 
 **Trade-off**:
@@ -83,7 +83,7 @@
 
 **理由**：
 - 原 codebase 兩份 trait（DB / ES）~600 行 ~70% 重複，必須統一
-- v1 PHP 7.2 floor 無法用 Spatie 4.x（需 PHP 8.0+）
+- v1 PHP 7.3 floor 無法用 Spatie 4.x（需 PHP 8.0+）
 - 策略型抽象（LogTargetContract）保留替換空間
 
 **Trade-off**：v1 自建多寫程式；v2 升級時介面不變，消費端無感。
@@ -155,26 +155,26 @@
 ### D13. AbstractEnum 不升 native enum（v1）
 **選擇**：v1 沿用 reflection-based `AbstractEnum`，v2 (PHP 8.1+) 改為包 native `enum`
 
-**理由**：受 PHP 7.2 floor 限制
+**理由**：受 PHP 7.3 floor 限制
 
 **Trade-off**：v1 拿不到 type safety；v2 平滑升級時 contract 不變。
 
 ### D14. PHP / Laravel 廣相容
-**選擇**：PHP `^7.2.5 || ^8.0`、Laravel `^6.0 || ^7.0 || ^8.0 || ^9.0 || ^10.0 || ^11.0`
+**選擇**：PHP `^7.3 || ^8.0`、Laravel `^6.0 || ^7.0 || ^8.0 || ^9.0 || ^10.0 || ^11.0`
 
 **理由**：
-- 用戶希望「v1 PHP 7.2 / v2 8.1」保留選擇性
-- Laravel 9+ 需要 PHP 8.0+，所以 PHP 7.2 環境只能配 Laravel 6/7/8
+- 用戶希望「v1 legacy PHP / v2 8.1」保留選擇性；實際 v1 floor 受 Elasticsearch 7.17 限制調整為 PHP 7.3
+- Laravel 9+ 需要 PHP 8.0+，所以 PHP 7.3 環境只能配 Laravel 6/7/8
 - composer 依消費端環境自動 resolve
 
 **Trade-off**：依賴版本範圍要拉寬，CI matrix 較複雜（exclude 不相容組合）。
 
 ## Risks / Trade-offs
 
-- **依賴老化**：堅持 PHP 7.2 floor 等於拒絕 Monolog 3 / ES 8 / spatie/laravel-activitylog 4 / spatie/laravel-package-tools 1 等現代套件。對應策略：v2 明確規畫升至 PHP 8.1+ floor，採時序漸進；介面契約不變。
+- **依賴老化**：堅持 PHP 7.3 floor 等於拒絕 Monolog 3 / ES 8 / spatie/laravel-activitylog 4 / spatie/laravel-package-tools 1 等現代套件。對應策略：v2 明確規畫升至 PHP 8.1+ floor，採時序漸進；介面契約不變。
 - **重構 audit logging 風險**：來源 codebase 仰賴既有 trait 行為，重構為策略型抽象需完整迴歸測試。對應策略：在 legacy-shim change 中提供「舊行為 wrapper」。
 - **Flysystem 2/3 雙版本支援**：visibility 常數差異需做雙向映射。
-- **Laravel 6/7/8 為 EOL**：v1 仍支援這些是為了相容於 PHP 7.2 floor 的消費端；若消費端都在 Laravel 9+，可直接升 v2。
+- **Laravel 6/7/8 為 EOL**：v1 仍支援這些是為了相容於 PHP 7.3 floor 的消費端；若消費端都在 Laravel 9+，可直接升 v2。
 - **SMS driver 整合曲線**：消費端首次接入需自寫 concrete driver。對應策略：詳細「自寫 driver 教學」+ fake provider 範例 + `AbstractHttpSmsDriver` 預先處理 retry / backoff / log observer。
 - **Repository pattern 遷移痛**：原 codebase 大量 Repository 呼叫，遷移要改寫；換得新專案不背技術債。
 - **ES Query Builder 移除**：來源 codebase 若大量使用既有 ES Builder 鏈式 API，遷移要改寫成 array DSL。對應策略：legacy-shim 可提供 `Builder` shim（包 raw client + 老 API）給漸進期。

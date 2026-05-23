@@ -1,0 +1,9 @@
+<?php
+
+namespace {{ namespace }};
+
+use Devkit\Core\Enum\AbstractEnum;
+
+class {{ class }} extends AbstractEnum
+{
+}

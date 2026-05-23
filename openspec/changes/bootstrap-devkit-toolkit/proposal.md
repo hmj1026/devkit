@@ -2,7 +2,7 @@
 
 某既有 PHP/Laravel 專案內部有一組 11 個分散維護的工具套件（涵蓋 framework、repository、HTTP URI、meta tags、file uploader、SMS、SQS FIFO queue、Elasticsearch、Elasticsearch logs、Google Chat log、breadcrumb trail 等領域）。它們已驗證業務價值，但分散在獨立 repo、版本散亂、出現 ~600 行 entity logger 重複實作，且 Google Chat log handler 存在 Monolog 2/3 簽章半遷移 bug。
 
-我們需要把這些零件的「概念」融合成一個**對外可發佈、跨 PHP 7.2.5 → 8.2、Laravel 6 → 11 廣相容**的開發加速工具箱，做為新專案與外部專案的共同基底。**目標是快速開發、不是企業級照抄**。經過架構審查，本 change 已刪除原架構中過度設計（Repository pattern、ES Query Builder + Grammar、HTTP Gateway 三層抽象、12 個 Artisan generator）並合併過碎的 capability，從 17 個減到 14 個。
+我們需要把這些零件的「概念」融合成一個**對外可發佈、跨 PHP 7.3 → 8.2、Laravel 6 → 11 廣相容**的開發加速工具箱，做為新專案與外部專案的共同基底。**目標是快速開發、不是企業級照抄**。經過架構審查，本 change 已刪除原架構中過度設計（Repository pattern、ES Query Builder + Grammar、HTTP Gateway 三層抽象、12 個 Artisan generator）並合併過碎的 capability，從 17 個減到 14 個。
 
 ## What Changes
 
@@ -10,7 +10,7 @@
 - **新增 mono-package `hmj1026/devkit`**（root namespace `Devkit\`，PSR-4 `src/`），單一 composer 套件 + 子命名空間結構
 - **核心類別 framework-agnostic**：僅依賴 PSR 標準（3/7/15/16/17/18）與獨立中立套件（Monolog、Guzzle、Flysystem、elasticsearch-php、butschster/meta-tags、jenssegers/agent）
 - **Laravel 黏合層**：歸入 `Devkit\Laravel\*`（**不再用 `Bridge\` 中介名**，Laravel namespace 就是主實作）
-- **PHP / Laravel 廣相容**：v1 PHP `^7.2.5 || ^8.0`、Laravel `^6.0 || ^7.0 || ^8.0 || ^9.0 || ^10.0 || ^11.0`；v2 預計 bump 至 PHP `^8.1`（解鎖 native enum / Monolog 3 / spatie 系列）
+- **PHP / Laravel 廣相容**：v1 PHP `^7.3 || ^8.0`、Laravel `^6.0 || ^7.0 || ^8.0 || ^9.0 || ^10.0 || ^11.0`；v2 預計 bump 至 PHP `^8.1`（解鎖 native enum / Monolog 3 / spatie 系列）
 
 ### 架構審查後的剪裁
 - **刪除 `devkit-eloquent-repository` capability**：Repository pattern 是 cargo-cult，Laravel 社群已普遍棄用。改用 Eloquent + Service / Action class + Scope 模式
@@ -61,6 +61,6 @@
   - 核心：`monolog/monolog ^2.9`、`guzzlehttp/guzzle ^7.0`、`league/flysystem ^1.1 || ^2.0 || ^3.0`（v1/v2/v3 三代並存以涵蓋 Laravel 6→11 矩陣）、`elasticsearch/elasticsearch ^7.17`、`butschster/meta-tags ^2.1`、`jenssegers/agent ^2.0`、PSR-3/7/16/17/18
   - Laravel adapter 額外：`illuminate/support ^6.0 → ^11.0`、`illuminate/database`、`illuminate/queue`、`illuminate/notifications`、`aws/aws-sdk-php ^3.0`、`ramsey/uuid ^4.0`
   - require-dev：`orchestra/testbench`、`phpunit/phpunit`、`mockery/mockery`、`league/flysystem-memory`
-- **CI**：GitHub Actions matrix（PHP 7.2.5 / 7.4 / 8.0 / 8.1 / 8.2 × Laravel 6 → 11，依相容組合過濾）
+- **CI**：GitHub Actions matrix（PHP 7.3 / 7.4 / 8.0 / 8.1 / 8.2 × Laravel 6 → 11，依相容組合過濾）
 - **既有專案遷移路徑**：後續單獨 change `add-legacy-shim` 提供 `hmj1026/legacy-shim` 子套件（通用 class_alias 載入器），讓既有專案可依自家命名空間設定漸進切換
 - **不影響任何既有專案程式碼**（直到該專案端決定引入 shim 才啟動）

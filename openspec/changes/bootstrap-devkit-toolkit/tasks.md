@@ -39,9 +39,9 @@
 - [x] 4.4 撰寫 `HttpUriTest`：用 in-memory PSR-16
 - [x] 4.5 Port `Devkit\Core\Response\JsonEnvelope` + `WebEnvelope`：返回 PSR-7 `ResponseInterface`
 - [x] 4.6 撰寫 envelope 測試
-- [ ] 4.7 Port `Devkit\Logging\GoogleChat\GoogleChatLogHandler`：Monolog 2.9 `AbstractProcessingHandler`、`protected function write(array $record): void`（**移除 `use Monolog\LogRecord;`**）、color-coded severity、per-level mention
-- [ ] 4.8 Port `Devkit\Logging\GoogleChat\GoogleChatLogLineFormatter` + factory
-- [ ] 4.9 撰寫 `GoogleChatLogHandlerTest`：mock Guzzle，驗證 webhook body shape
+- [x] 4.7 Port `Devkit\Logging\GoogleChat\GoogleChatLogHandler`：dual Monolog 2/3 dispatcher stub + Internal/M2 + Internal/M3 + 共享 trait，color-coded severity、per-level mention（升級規格至 dual-version 支援）
+- [x] 4.8 Port `Devkit\Logging\GoogleChat\GoogleChatLogLineFormatter` + `GoogleChatLogHandlerFactory`
+- [x] 4.9 撰寫 `GoogleChatLogHandlerTest`：RecordingHttpClient (PSR-18) 驗證 webhook body shape、color、mention
 
 ## 5. Wave 4 — Domain 模組
 

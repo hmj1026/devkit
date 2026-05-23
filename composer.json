@@ -29,6 +29,7 @@
         "psr/http-client": "^1.0",
         "psr/http-factory": "^1.0",
         "monolog/monolog": "^2.9 || ^3.0",
+        "symfony/http-kernel": "^4.4 || ^5.0 || ^6.0 || ^7.0",
         "guzzlehttp/guzzle": "^7.0",
         "league/flysystem": "^1.1 || ^2.0 || ^3.0",
         "elasticsearch/elasticsearch": "^7.17",
@@ -46,7 +47,10 @@
     "autoload": {
         "psr-4": {
             "Devkit\\": "src/"
-        }
+        },
+        "files": [
+            "src/Core/Support/helpers.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {

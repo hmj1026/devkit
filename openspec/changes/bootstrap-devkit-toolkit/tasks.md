@@ -13,8 +13,8 @@
 
 - [x] 2.1 Port `Devkit\Core\Enum\AbstractEnum`：反射 + memoised constants + `toArray() / values() / keys() / mapping() / getByAlias()`
 - [x] 2.2 撰寫 `AbstractEnumTest`（純 PHP）
-- [ ] 2.3 Port `Devkit\Core\Exception\AbstractHttpException` + `ReportExceptionContract`（implements Symfony `HttpExceptionInterface`）
-- [ ] 2.4 撰寫 `AbstractHttpExceptionTest`
+- [x] 2.3 Port `Devkit\Core\Exception\AbstractHttpException` + `ReportExceptionContract`（implements Symfony `HttpExceptionInterface`）
+- [x] 2.4 撰寫 `AbstractHttpExceptionTest`
 - [x] 2.5 Port `Devkit\Core\Support\helpers.php`：純 PHP helpers (`isJson` 等)
 - [ ] 2.6 Port `Devkit\Ui\Trail\Trail` + `TrailManager` + `TrailTag`（去除 Laravel facade 依賴）
 - [ ] 2.7 撰寫 `TrailTest`（純 PHP）

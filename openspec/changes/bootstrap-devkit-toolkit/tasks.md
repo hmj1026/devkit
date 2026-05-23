@@ -1,13 +1,13 @@
 ## 1. Wave 0 — Bootstrap
 
 - [x] 1.1 在 `/Users/paul/Project/devkit/` 建立 `composer.json`:name `hmj1026/devkit`、PSR-4 `Devkit\` → `src/`、PHP `^7.2.5 || ^8.0`、require psr/log + psr/simple-cache + psr/http-message + psr/http-client + psr/http-factory + monolog/monolog ^2.9 + guzzlehttp/guzzle ^7.0 + league/flysystem `^1.1 || ^2.0 || ^3.0` (含 v1 以涵蓋 Laravel 6/7/8) + elasticsearch/elasticsearch ^7.17 + butschster/meta-tags ^2.1 + jenssegers/agent ^2.0
-- [ ] 1.2 補 require-dev：orchestra/testbench、phpunit/phpunit、mockery/mockery、league/flysystem-memory、laravel/framework（覆蓋 6 → 11 矩陣）
-- [ ] 1.3 撰寫 `phpunit.xml`：兩個 testsuite `core`（純 PHP）與 `laravel`（Orchestra Testbench）
-- [ ] 1.4 撰寫 `.github/workflows/tests.yml`：matrix PHP 7.2.5/7.3/7.4/8.0/8.1/8.2 × Laravel 6/7/8/9/10/11，過濾不相容組合
-- [ ] 1.5 撰寫 README skeleton（含模組地圖、安裝步驟、Laravel 與非 Laravel 用法、v2 roadmap 段落）+ LICENSE (MIT)
-- [ ] 1.6 撰寫 `.gitignore`（vendor、composer.lock 對 library 該 ignore、phpunit cache、IDE 設定）
-- [ ] 1.7 撰寫 `src/` 與 `tests/` 目錄結構 placeholder（`.gitkeep`）
-- [ ] 1.8 補 openspec `config.yaml` 的 `context:` 區塊
+- [x] 1.2 補 require-dev：orchestra/testbench、phpunit/phpunit、mockery/mockery、league/flysystem-memory、laravel/framework（覆蓋 6 → 11 矩陣）
+- [x] 1.3 撰寫 `phpunit.xml`：兩個 testsuite `core`（純 PHP）與 `laravel`（Orchestra Testbench）
+- [x] 1.4 撰寫 `.github/workflows/tests.yml`：matrix PHP 7.3/7.4/8.0/8.1/8.2 × Laravel 6/7/8/9/10/11，過濾不相容組合（PHP 7.2 已排除：elasticsearch/elasticsearch ^7.17 要求 PHP 7.3+）；audit block 關閉；monolog 與 butschster/meta-tags per-cell pin
+- [x] 1.5 撰寫 README skeleton（含模組地圖、安裝步驟、Laravel 與非 Laravel 用法、v2 roadmap 段落）+ LICENSE (MIT)
+- [x] 1.6 撰寫 `.gitignore`（vendor、composer.lock 對 library 該 ignore、phpunit cache、IDE 設定）
+- [x] 1.7 撰寫 `src/` 與 `tests/` 目錄結構 placeholder（`.gitkeep`）
+- [x] 1.8 補 openspec `config.yaml` 的 `context:` 區塊
 
 ## 2. Wave 1 — Pure leaves
 

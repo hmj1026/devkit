@@ -53,6 +53,7 @@
             "Devkit\\": "src/"
         },
         "files": [
+            "src/Laravel/Database/Cast/polyfills.php",
             "src/Core/Support/helpers.php",
             "src/Core/Validation/functions.php",
             "src/Laravel/Http/Support/helpers.php",

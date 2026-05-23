@@ -27,10 +27,11 @@ interface LogObserverContract
     public function onRequest(RequestInterface $request);
 
     /**
-     * Called just after the Gateway receives the response (or after a
-     * retry chain completes successfully). Not invoked when the request
-     * exhausts retries without success — observers needing failure
-     * notification SHOULD subscribe to the surrounding try/catch.
+     * Called after the Gateway receives any response from the wire,
+     * including 5xx responses that will trigger a retry. NOT invoked when
+     * a request exhausts retries due to network-level exceptions only (no
+     * response was ever received). Implementations wanting "success-only"
+     * semantics SHOULD filter on `$response->getStatusCode()`.
      *
      * @param  ResponseInterface  $response
      * @return void

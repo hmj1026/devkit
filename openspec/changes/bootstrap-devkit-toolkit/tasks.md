@@ -33,8 +33,8 @@
 
 ## 4. Wave 3 — Core 實作
 
-- [ ] 4.1 Port `Devkit\Http\Client\Gateway`：**單一 class**，包 Guzzle，retry decider + exponential backoff + log observer
-- [ ] 4.2 撰寫 `GatewayTest`：用 Guzzle MockHandler 驗證 retry/backoff
+- [x] 4.1 Port `Devkit\Http\Client\Gateway`：**單一 class**，包 Guzzle，retry decider + exponential backoff + log observer
+- [x] 4.2 撰寫 `GatewayTest`：用 Guzzle MockHandler 驗證 retry/backoff
 - [ ] 4.3 Port `Devkit\Http\Asset\HttpUri`：type-hint `Psr\SimpleCache\CacheInterface`
 - [ ] 4.4 撰寫 `HttpUriTest`：用 in-memory PSR-16
 - [ ] 4.5 Port `Devkit\Core\Response\JsonEnvelope` + `WebEnvelope`：返回 PSR-7 `ResponseInterface`

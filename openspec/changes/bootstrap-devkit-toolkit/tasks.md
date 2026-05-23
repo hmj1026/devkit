@@ -23,13 +23,13 @@
 
 ## 3. Wave 2 — Contracts
 
-- [ ] 3.1 `Devkit\Database\Contract\Entity\HasUuidContract` + `HasStatusContract` + `HasAuditLogContract`（純 PHP）
-- [ ] 3.2 `Devkit\Storage\Contract\FileContract` + `DirectorContract`
-- [ ] 3.3 `Devkit\Messaging\Sms\Contract\SmsDriverContract` + `SmsMessageContract` + `SmsResultContract`
-- [ ] 3.4 `Devkit\Search\Contract\ConnectionContract` + `IndexContract`
-- [ ] 3.5 `Devkit\Logging\Contract\LogTargetContract`
-- [ ] 3.6 `Devkit\Http\Client\Contract\LogObserverContract`
-- [ ] 3.7 為每個 contract 寫 `interface_exists` smoke test
+- [x] 3.1 `Devkit\Database\Contract\Entity\HasUuidContract` + `HasStatusContract` + `HasAuditLogContract`（純 PHP）
+- [x] 3.2 `Devkit\Storage\Contract\FileContract` + `DirectorContract`
+- [x] 3.3 `Devkit\Messaging\Sms\Contract\SmsDriverContract` + `SmsMessageContract` + `SmsResultContract`
+- [x] 3.4 `Devkit\Search\Contract\ConnectionContract` + `IndexContract`
+- [x] 3.5 `Devkit\Logging\Contract\LogTargetContract`
+- [x] 3.6 `Devkit\Http\Client\Contract\LogObserverContract`
+- [x] 3.7 為每個 contract 寫 `interface_exists` smoke test
 
 ## 4. Wave 3 — Core 實作
 

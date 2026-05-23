@@ -59,6 +59,9 @@ jobs:
           key: composer-php${{ matrix.php }}-laravel${{ matrix.laravel }}-${{ hashFiles('composer.json') }}
           restore-keys: composer-php${{ matrix.php }}-laravel${{ matrix.laravel }}-
 
+      - name: Disable composer audit blocking (legacy matrix)
+        run: composer config audit.block-insecure false
+
       - name: Install matrix dependencies
         run: |
           composer require --no-update --dev \

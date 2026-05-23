@@ -15,11 +15,11 @@ class HashedCast implements CastsAttributes
     public function set($model, string $key, $value, array $attributes)
     {
         if ($value === null || $value === '') {
-            return $value;
+            return array($key => $value);
         }
 
         $value = (string) $value;
 
-        return Hash::needsRehash($value) ? Hash::make($value) : $value;
+        return array($key => Hash::needsRehash($value) ? Hash::make($value) : $value);
     }
 }

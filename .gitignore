@@ -9,6 +9,9 @@ composer.phar
 /build/
 /coverage/
 
+# Code style
+.php-cs-fixer.cache
+
 # IDE
 .idea/
 .vscode/

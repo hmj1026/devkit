@@ -15,7 +15,7 @@
 - [ ] 2.2 撰寫 `AbstractEnumTest`（純 PHP）
 - [ ] 2.3 Port `Devkit\Core\Exception\AbstractHttpException` + `ReportExceptionContract`（implements Symfony `HttpExceptionInterface`）
 - [ ] 2.4 撰寫 `AbstractHttpExceptionTest`
-- [ ] 2.5 Port `Devkit\Core\Support\helpers.php`：純 PHP helpers (`isJson` 等)
+- [x] 2.5 Port `Devkit\Core\Support\helpers.php`：純 PHP helpers (`isJson` 等)
 - [ ] 2.6 Port `Devkit\Ui\Trail\Trail` + `TrailManager` + `TrailTag`（去除 Laravel facade 依賴）
 - [ ] 2.7 撰寫 `TrailTest`（純 PHP）
 - [ ] 2.8 Port `Devkit\Ui\MetaTag\Meta` 等類別（包 butschster/meta-tags v2，weight 排序）

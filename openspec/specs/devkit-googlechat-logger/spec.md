@@ -5,16 +5,25 @@ Monolog 2.9 handler for Google Chat webhooks with color-coded severity cards, pe
 
 ## Requirements
 
-### Requirement: Monolog 2.x Handler with Correct Signature
-`Devkit\Logging\GoogleChat\GoogleChatLogHandler` SHALL extend `Monolog\Handler\AbstractProcessingHandler` and implement `protected function write(array $record): void`, without importing `Monolog\LogRecord` (which is Monolog 3+).
+### Requirement: Dual Monolog 2.x / 3.x Handler Support
+`Devkit\Logging\GoogleChat\GoogleChatLogHandler` SHALL be installable and loadable on both Monolog 2.9 and Monolog 3.x to match the package's dependency range `monolog/monolog ^2.9 || ^3.0`. The implementation SHALL detect the installed Monolog major at autoload time (e.g. via `class_exists('Monolog\\LogRecord')`) and dispatch to a version-specific concrete class extending `Monolog\Handler\AbstractProcessingHandler` with the correct `write()` signature:
 
-#### Scenario: Signature compatible with Monolog 2.9
-- **WHEN** Monolog 2.9 dispatches a log record to the handler
-- **THEN** the handler's `write(array $record)` is invoked without TypeError
+- Under Monolog 2.9: `protected function write(array $record): void` — `Monolog\LogRecord` MUST NOT be imported (it does not exist).
+- Under Monolog 3.x: `protected function write(\Monolog\LogRecord $record): void` — the record is treated as the immutable `LogRecord` value object.
+
+Both concrete implementations SHALL share formatting/dispatch logic via a common trait or helper class so colour-coding, mention maps, and webhook semantics stay identical.
+
+#### Scenario: Loads on PHP 7.3 + Monolog 2.9
+- **WHEN** the package is installed on PHP 7.3 + Monolog 2.9
+- **THEN** the handler autoloads without referencing the non-existent `Monolog\LogRecord` class, and Monolog 2.9 dispatching a record invokes `write(array $record)` without TypeError
+
+#### Scenario: Loads on PHP 8.2 + Monolog 3.x
+- **WHEN** the package is installed on PHP 8.2 + Monolog 3.x (e.g. via Laravel 10/11 forcing Monolog 3)
+- **THEN** the handler autoloads without a Liskov-substitution (LSP) violation against the Monolog 3 abstract base, and Monolog 3 dispatching a record invokes `write(LogRecord $record)` without TypeError
 
 #### Scenario: Fixes original mixed-signature bug
-- **WHEN** the package is installed on PHP 7.2 + Monolog 2.9
-- **THEN** the handler loads without referencing the non-existent `Monolog\LogRecord` class
+- **WHEN** maintainers grep the v1 GoogleChat handler source for the literal `use Monolog\LogRecord`
+- **THEN** that import appears only in the Monolog 3 concrete class, never in the Monolog 2 concrete class
 
 ### Requirement: Webhook Dispatch
 On `write()`, the handler SHALL POST the formatted record to the configured Google Chat webhook URL via the injected PSR-18 HTTP client (Guzzle 7 by default).

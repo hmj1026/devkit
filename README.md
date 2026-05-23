@@ -6,15 +6,15 @@ A generic, framework-agnostic PHP toolkit with optional Laravel integration. Bun
 
 ## Supported runtimes
 
-| PHP | Laravel | Notes |
-|-----|---------|-------|
-| 7.2.5 / 7.3 | 6.x / 7.x | Lowest supported floor |
-| 7.4 | 6.x / 7.x / 8.x | Most common legacy target |
-| 8.0 | 8.x / 9.x | |
-| 8.1 | 8.x / 9.x / 10.x | |
-| 8.2 | 9.x / 10.x / 11.x | Most modern cell |
+| PHP | Laravel | Monolog | Notes |
+|-----|---------|---------|-------|
+| 7.3 | 6.x / 7.x | 2.9 | Lowest supported floor (PHP 7.2 excluded — `elasticsearch/elasticsearch ^7.17` requires PHP 7.3+) |
+| 7.4 | 6.x / 7.x / 8.x | 2.9 | Most common legacy target |
+| 8.0 | 8.x / 9.x | 2.9 | |
+| 8.1 | 8.x / 9.x / 10.x | 2.9 (L8/9) / 3.x (L10) | |
+| 8.2 | 9.x / 10.x / 11.x | 2.9 (L9) / 3.x (L10/11) | Most modern cell |
 
-Incompatible cells (e.g. PHP 7.2 + Laravel 9) are excluded by Composer's resolver and by the CI matrix in [`.github/workflows/tests.yml`](./.github/workflows/tests.yml).
+Incompatible cells (e.g. PHP 7.3 + Laravel 9, PHP 7.2 + anything) are excluded by Composer's resolver and by the CI matrix in [`.github/workflows/tests.yml`](./.github/workflows/tests.yml). The package declares `monolog/monolog ^2.9 || ^3.0`; Laravel 10+ forces monolog 3, earlier Laravel keeps monolog 2.9.
 
 A v2 with PHP `^8.1` floor will swap Monolog → 3.x, Flysystem → 3-only, and consider [spatie/laravel-activitylog](https://github.com/spatie/laravel-activitylog) as the audit-log engine.
 
@@ -59,7 +59,7 @@ Framework-agnostic core (`Devkit\Core\*`, `Devkit\Database\*`, `Devkit\Http\*`, 
 - `devkit-file-uploader` — Director pattern over Flysystem 2/3 with dual visibility mapping.
 - `devkit-elasticsearch` — ES 7.17 client with Index/Alias bases and raw array DSL (no Query Builder).
 - `devkit-sms-dispatch` — Driver contract + Manager + NullDriver + `AbstractHttpSmsDriver`.
-- `devkit-googlechat-logger` — Monolog 2.9 handler for Google Chat webhooks.
+- `devkit-googlechat-logger` — Dual Monolog 2.9 / 3.x handler for Google Chat webhooks (version selected per Laravel cell).
 - `devkit-blade-helpers` — Trail (breadcrumb) + butschster/meta-tags v2 with weight-sorted ordering.
 - `devkit-eloquent-helpers` — `HasUuid` / `HasStatus` / `HasAuditLog` traits + Criteria + Casts.
 - `devkit-audit-logging` — Strategy-based entity change logger with Eloquent + Elasticsearch targets.
@@ -79,7 +79,7 @@ docker exec -w /var/www/devkit posdev_php vendor/bin/phpunit --testsuite=core
 docker exec -w /var/www/devkit posdev_php vendor/bin/phpunit --testsuite=laravel
 ```
 
-Full CI matrix (PHP 7.2.5 → 8.2 × Laravel 6 → 11) runs on GitHub Actions; see [`.github/workflows/tests.yml`](./.github/workflows/tests.yml).
+Full CI matrix (PHP 7.3 → 8.2 × Laravel 6 → 11) runs on GitHub Actions; see [`.github/workflows/tests.yml`](./.github/workflows/tests.yml).
 
 ## OpenSpec workflow
 

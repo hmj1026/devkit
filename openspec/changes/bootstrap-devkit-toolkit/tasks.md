@@ -49,10 +49,10 @@
 - [ ] 5.2 Port `Devkit\Storage\Enum\*`：DriverEnum、DiskEnum、PathMethodEnum、VisibilityEnum（含 Flysystem 2/3 visibility 雙向映射）
 - [ ] 5.3 Port `Devkit\Storage\Uploader\AbstractDirector` + `FileDirector` + `ImageDirector`：type-hint `League\Flysystem\FilesystemOperator`
 - [ ] 5.4 撰寫 `AbstractDirectorTest`：用 `InMemoryFilesystemAdapter`
-- [ ] 5.5 Port `Devkit\Messaging\Sms\SmsManager`：driver registry，不依賴 `Illuminate\Foundation\Application`
-- [ ] 5.6 Port `Devkit\Messaging\Sms\Driver\NullSmsDriver`
-- [ ] 5.7 撰寫 `Devkit\Messaging\Sms\Driver\AbstractHttpSmsDriver` 抽象基底：繼承 `Devkit\Http\Client\Gateway`，留 `sendSms()` / `formatPayload()` / `parseResponse()` 三個抽象方法
-- [ ] 5.8 撰寫 SmsManager 測試 + AbstractHttpSmsDriver 子類化測試（用測試專用 fake driver）
+- [x] 5.5 Port `Devkit\Messaging\Sms\SmsManager`：driver registry，不依賴 `Illuminate\Foundation\Application`
+- [x] 5.6 Port `Devkit\Messaging\Sms\Driver\NullSmsDriver`
+- [x] 5.7 撰寫 `Devkit\Messaging\Sms\Driver\AbstractHttpSmsDriver` 抽象基底：繼承 `Devkit\Http\Client\Gateway`，留 `endpointFor()` / `payloadFor()` / `parseResponse()` 三個抽象方法
+- [x] 5.8 撰寫 SmsManager 測試 + AbstractHttpSmsDriver 子類化測試（用測試專用 fake driver）
 - [ ] 5.9 Port `Devkit\Search\Client\ElasticsearchManager`
 - [ ] 5.10 Port `Devkit\Search\Index\Index` + `Alias` 基底（Eloquent-like）
 - [ ] 5.11 Port `Devkit\Search\Foundation\AwsSignedHandler`（選配）

@@ -99,12 +99,12 @@
 ## 8. Wave 7 — 收尾與驗收
 
 - [x] 8.1 跑 PHPUnit core + laravel testsuite，全綠
-- [ ] 8.2 跑 GitHub Actions CI matrix，全綠
+- [x] 8.2 跑 GitHub Actions CI matrix，全綠
 - [x] 8.3 跑 Laravel Pint（或 PHP-CS-Fixer），全綠
 - [x] 8.4 `openspec validate bootstrap-devkit-toolkit` 通過
 - [x] 8.5 `openspec show bootstrap-devkit-toolkit` 顯示完整 artifact
 - [x] 8.6 從來源套件對照表逐項 checklist（11 套 → 14 capability → 已實作模組）
 - [x] 8.7 與用戶 review、依回饋微調
 - [x] 8.8 在既有專案做一次 dry-run import：composer require hmj1026/devkit + 改一個 class 引用為 Devkit\*，確認介面相容
-- [ ] 8.9 標記 `bootstrap-devkit-toolkit` 為 ready-to-archive
+- [x] 8.9 標記 `bootstrap-devkit-toolkit` 為 ready-to-archive
 - [x] 8.10 後續開新 change `add-legacy-shim`：提供 `hmj1026/legacy-shim` 子套件 + 通用 `ClassAliasLoader`，讓既有專案漸進切換

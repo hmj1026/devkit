@@ -18,7 +18,8 @@ use Psr\Http\Message\ResponseInterface;
  * base + NullSmsDriver; consumers author their own concrete driver
  * subclasses (Twilio / AWS SNS / in-house APIs) — none ship in src/.
  *
- * Pure PHP — no Illuminate imports. PHP 5.6-syntax-safe.
+ * Pure PHP — no Illuminate imports. Production code stays within the package's
+ * PHP 7.3 compatibility floor.
  */
 abstract class AbstractHttpSmsDriver extends Gateway implements SmsDriverContract
 {

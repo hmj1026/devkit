@@ -4,7 +4,7 @@ namespace Devkit\Search\Contract;
 
 /**
  * Eloquent-like base contract for ES index documents. Concrete subclasses
- * (Devkit\Search\Index\Index, Wave 4) declare the index mapping via
+ * (Devkit\Search\Index\Index) declare the index mapping via
  * getMapping() and may opt into partitioning via getPartition() to
  * spread writes across date- or tenant-bucketed indices.
  *

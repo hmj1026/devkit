@@ -6,7 +6,7 @@ namespace Devkit\Ui\Trail;
  * Breadcrumb trail. Holds an ordered list of TrailTag items and renders them
  * either as the raw collection (via breadcrumb()->all()) or as a joined title
  * string (via title()). Pure PHP — the Laravel facade / SP glue lives under
- * the Devkit\Laravel\Ui\Trail namespace and is wired in Wave 5.
+ * the Devkit\Laravel\Ui\Trail namespace.
  */
 class Trail
 {

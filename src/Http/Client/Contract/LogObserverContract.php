@@ -6,7 +6,7 @@ use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
 /**
- * Observer attached to Devkit\Http\Client\Gateway (Wave 3) and notified
+ * Observer attached to Devkit\Http\Client\Gateway and notified
  * for every PSR-7 request/response pair the Gateway processes. Decouples
  * logging from the request lifecycle so callers can register zero, one,
  * or many observers without touching Gateway internals.

@@ -1,6 +1,6 @@
 ## 1. Wave 0 — Bootstrap
 
-- [x] 1.1 在 `/Users/paul/Project/devkit/` 建立 `composer.json`:name `hmj1026/devkit`、PSR-4 `Devkit\` → `src/`、PHP `^7.3 || ^8.0`、require psr/log + psr/simple-cache + psr/http-message + psr/http-client + psr/http-factory + monolog/monolog ^2.9 + guzzlehttp/guzzle ^7.0 + league/flysystem `^1.1 || ^2.0 || ^3.0` (含 v1 以涵蓋 Laravel 6/7/8) + elasticsearch/elasticsearch ^7.17 + butschster/meta-tags ^2.1 + jenssegers/agent ^2.0
+- [x] 1.1 在 `/Users/paul/Project/devkit/` 建立 `composer.json`:name `hmj1026/devkit`、PSR-4 `Devkit\` → `src/`、PHP `^7.3 || ^8.0`、require psr/log + psr/simple-cache + psr/http-message + psr/http-client + psr/http-factory + monolog/monolog `^2.9 || ^3.0` + guzzlehttp/guzzle ^7.0 + league/flysystem `^1.1 || ^2.0 || ^3.0` (含 v1 以涵蓋 Laravel 6/7/8) + elasticsearch/elasticsearch ^7.17 + butschster/meta-tags `^2.1 || ^3.0` + jenssegers/agent ^2.0
 - [x] 1.2 補 require-dev：orchestra/testbench、phpunit/phpunit、mockery/mockery、league/flysystem-memory、laravel/framework（覆蓋 6 → 11 矩陣）
 - [x] 1.3 撰寫 `phpunit.xml`：兩個 testsuite `core`（純 PHP）與 `laravel`（Orchestra Testbench）
 - [x] 1.4 撰寫 `.github/workflows/tests.yml`：matrix PHP 7.3/7.4/8.0/8.1/8.2 × Laravel 6/7/8/9/10/11，過濾不相容組合（PHP 7.2 已排除：elasticsearch/elasticsearch ^7.17 要求 PHP 7.3+）；audit block 關閉；monolog 與 butschster/meta-tags per-cell pin
@@ -46,8 +46,8 @@
 ## 5. Wave 4 — Domain 模組
 
 - [x] 5.1 Port `Devkit\Storage\Foundation\File` + `Image`
-- [x] 5.2 Port `Devkit\Storage\Enum\*`：DriverEnum、DiskEnum、PathMethodEnum、VisibilityEnum（含 Flysystem 2/3 visibility 雙向映射）
-- [x] 5.3 Port `Devkit\Storage\Uploader\AbstractDirector` + `FileDirector` + `ImageDirector`：type-hint `League\Flysystem\FilesystemOperator`
+- [x] 5.2 Port `Devkit\Storage\Enum\*`：DriverEnum、DiskEnum、PathMethodEnum、VisibilityEnum（含 Flysystem 1/2/3 visibility 映射）
+- [x] 5.3 Port `Devkit\Storage\Uploader\AbstractDirector` + `FileDirector` + `ImageDirector`：透過 internal bridge 接受 Flysystem v1 `FilesystemInterface` 與 v2/v3 `FilesystemOperator`
 - [x] 5.4 撰寫 `AbstractDirectorTest`：用 `InMemoryFilesystemAdapter`
 - [x] 5.5 Port `Devkit\Messaging\Sms\SmsManager`：driver registry，不依賴 `Illuminate\Foundation\Application`
 - [x] 5.6 Port `Devkit\Messaging\Sms\Driver\NullSmsDriver`

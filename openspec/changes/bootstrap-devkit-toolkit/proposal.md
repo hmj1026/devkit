@@ -23,9 +23,9 @@
 ### 既存決策（從原方案延續）
 - **SMS 抽象為 driver pattern**：`SmsDriverContract` + `SmsManager`，只提供 `NullSmsDriver` + `AbstractHttpSmsDriver` 抽象基底，concrete provider driver 由消費端自行實作
 - **Audit logging 策略型抽象**：`AbstractEntityChangeLogger` + `LogTargetContract` + `EloquentLogTarget` / `ElasticsearchLogTarget`（v2 可改為包 `spatie/laravel-activitylog`）
-- **採 Flysystem ^2.0 || ^3.0** 於 file-uploader（取代 Laravel Storage facade 直接依賴）
+- **採 Flysystem ^1.1 || ^2.0 || ^3.0** 於 file-uploader（取代 Laravel Storage facade 直接依賴，並涵蓋 Laravel 6/7/8 的 v1）
 - **採 elasticsearch-php ^7.17**（避開 8.x 的 Elastic License v2 與 PHP 7.4 floor）
-- **採 Monolog ^2.9** 並修正 Google Chat log handler 半遷移 bug
+- **採 Monolog ^2.9 || ^3.0** 並修正 Google Chat log handler 半遷移 bug，依安裝版本選擇正確 handler 簽章
 - **SqsFifo 完全 Laravel-only**，放 `Devkit\Laravel\Queue\SqsFifo\`
 - **根 `DevkitServiceProvider` 條件式 register 各 module SP**：透過 `config('devkit.modules.<name>.enabled')` 開關
 - **5 個 Artisan generator 改為 opt-in**：預設關閉、stub 可 publish 覆寫
@@ -39,11 +39,11 @@
 3. `devkit-http-foundation`: `AbstractHttpException` + `JsonEnvelope`（`{code,message,data}`）+ `WebEnvelope`，回 PSR-7
 4. `devkit-http-gateway`: 單一 `Gateway` class 包 Guzzle，retry decider + exponential backoff + log observer
 5. `devkit-asset-versioning`: `HttpUri` cache-busting URL，PSR-16 cache 注入
-6. `devkit-file-uploader`: Director pattern（File / Image），驗證 MIME / size，多 disk，底層 Flysystem 2/3 `FilesystemOperator`
+6. `devkit-file-uploader`: Director pattern（File / Image），驗證 MIME / size，多 disk，底層 Flysystem 1/2/3 internal bridge
 7. `devkit-elasticsearch`: `ElasticsearchManager` + `Index` + `Alias` + `AwsSignedHandler`（**無 Query Builder / Grammar**，查詢用原生 ES DSL）
 8. `devkit-sms-dispatch`: `SmsManager` + `SmsDriverContract` + `NullSmsDriver` + `AbstractHttpSmsDriver` 抽象基底
 9. `devkit-sqs-fifo-queue`: Laravel SQS FIFO queue driver，4 個 Deduplicator (Unique/Content/Sqs/Callback)、`SqsFifoQueueable` trait
-10. `devkit-googlechat-logger`: Monolog ^2.9 `AbstractProcessingHandler`，color-coded severity + per-level mention map
+10. `devkit-googlechat-logger`: Monolog ^2.9 / ^3.0 `AbstractProcessingHandler`，color-coded severity + per-level mention map
 11. `devkit-blade-helpers`: 麵包屑 `Trail` + Meta tag 管理（含 weight-based 排序的 Title / Script / Style）
 12. `devkit-eloquent-helpers`: 3 個高價值 trait（`HasUuid` / `HasStatus` / `HasAuditLog`）+ 選配 `Criteria` 查詢 helper + `EncryptedCast` / `HashedCast`
 13. `devkit-audit-logging`: 策略型 `AbstractEntityChangeLogger` + `LogTargetContract` + `EloquentLogTarget` / `ElasticsearchLogTarget`
@@ -58,7 +58,7 @@
 - **新建 packagist 套件 `hmj1026/devkit`**，採 MIT License，git repo 在 `/Users/paul/Project/devkit/`
 - **14 個新 OpenSpec capability spec** 寫入 `openspec/specs/`（透過本 change archive；較原方案少 3 個）
 - **第三方依賴**：
-  - 核心：`monolog/monolog ^2.9`、`guzzlehttp/guzzle ^7.0`、`league/flysystem ^1.1 || ^2.0 || ^3.0`（v1/v2/v3 三代並存以涵蓋 Laravel 6→11 矩陣）、`elasticsearch/elasticsearch ^7.17`、`butschster/meta-tags ^2.1`、`jenssegers/agent ^2.0`、PSR-3/7/16/17/18
+  - 核心：`monolog/monolog ^2.9 || ^3.0`、`guzzlehttp/guzzle ^7.0`、`league/flysystem ^1.1 || ^2.0 || ^3.0`（v1/v2/v3 三代並存以涵蓋 Laravel 6→11 矩陣）、`elasticsearch/elasticsearch ^7.17`、`butschster/meta-tags ^2.1 || ^3.0`、`jenssegers/agent ^2.0`、PSR-3/7/16/17/18
   - Laravel adapter 額外：`illuminate/support ^6.0 → ^11.0`、`illuminate/database`、`illuminate/queue`、`illuminate/notifications`、`aws/aws-sdk-php ^3.0`、`ramsey/uuid ^4.0`
   - require-dev：`orchestra/testbench`、`phpunit/phpunit`、`mockery/mockery`、`league/flysystem-memory`
 - **CI**：GitHub Actions matrix（PHP 7.3 / 7.4 / 8.0 / 8.1 / 8.2 × Laravel 6 → 11，依相容組合過濾）

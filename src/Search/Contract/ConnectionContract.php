@@ -5,7 +5,7 @@ namespace Devkit\Search\Contract;
 /**
  * Named Elasticsearch connection — wraps the configuration needed to
  * obtain a configured elasticsearch-php client. The concrete manager
- * (Devkit\Search\Client\ElasticsearchManager, Wave 4) resolves
+ * (Devkit\Search\Client\ElasticsearchManager) resolves
  * connections by name; consumers SHOULD type-hint this contract when
  * accepting "any ES connection".
  *

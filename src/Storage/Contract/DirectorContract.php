@@ -7,8 +7,8 @@ namespace Devkit\Storage\Contract;
  * a storage path per the configured strategy, replicates across disks, and
  * returns a FileContract describing the result.
  *
- * Concrete directors (FileDirector / ImageDirector under
- * Devkit\Storage\Uploader\, Wave 4) supply file-type-specific validation
+ * Concrete directors (FileDirector / ImageDirector under the
+ * Devkit\Storage\Uploader namespace) supply file-type-specific validation
  * and naming conventions on top of this contract.
  *
  * Pure PHP — no Illuminate imports.

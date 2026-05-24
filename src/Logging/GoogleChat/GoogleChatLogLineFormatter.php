@@ -13,7 +13,7 @@ use Monolog\Formatter\LineFormatter;
  * but pre-configure with a GoogleChat-friendly default format and inline
  * line-breaks enabled (cards render \n as soft breaks).
  *
- * Used by the Laravel custom-log-driver bridge (Wave 5) when assembling
+ * Used by the Laravel custom-log-driver adapter when assembling
  * the handler; consumers calling the handler directly typically supply
  * their own formatter or let Monolog default kick in.
  */

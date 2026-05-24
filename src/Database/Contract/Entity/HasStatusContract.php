@@ -6,7 +6,7 @@ namespace Devkit\Database\Contract\Entity;
  * Marks a model as carrying an active/inactive status column and exposes the
  * canonical toggle surface (activate / deactivate / isActive). Concrete
  * status values (default 1 = active, 0 = inactive) and the column name are
- * implementation details left to the Laravel-side trait in Wave 5.
+ * implementation details left to framework-specific traits.
  *
  * Pure PHP — no Illuminate imports.
  */

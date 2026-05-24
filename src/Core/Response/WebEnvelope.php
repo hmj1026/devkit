@@ -8,8 +8,8 @@ use Psr\Http\Message\ResponseInterface;
 /**
  * Non-JSON response envelope. Provides redirect helpers returning PSR-7
  * responses distinct from JsonEnvelope's semantics. View-rendering helpers
- * (which require a template engine) are deferred to the Laravel adapter
- * in Wave 5; this class stays framework-agnostic.
+ * (which require a template engine) are deferred to framework adapters;
+ * this class stays framework-agnostic.
  *
  * Pure PHP — depends on PSR-7 + PSR-17 only. No Illuminate imports.
  */

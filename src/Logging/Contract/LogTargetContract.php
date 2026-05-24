@@ -4,7 +4,7 @@ namespace Devkit\Logging\Contract;
 
 /**
  * Strategy contract for audit-logging targets. The audit-logging trait
- * (Devkit\Laravel\Audit\AbstractEntityChangeLogger, Wave 5) and any other
+ * (Devkit\Laravel\Audit\AbstractEntityChangeLogger) and any other
  * code that produces structured log entries SHALL accept a
  * LogTargetContract so backends (Eloquent table, Elasticsearch index,
  * stdout JSON, etc.) are swappable without changing the producer.

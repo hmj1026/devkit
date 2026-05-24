@@ -2,7 +2,7 @@
 
 A generic, framework-agnostic PHP toolkit with optional Laravel integration. Bundles common building blocks for backend services — HTTP gateway, Elasticsearch toolkit, SMS dispatch, file uploader, audit logging, Google Chat error logger, meta tags, breadcrumb trail — into a single Composer package.
 
-> **Status: Wave 0 bootstrap.** The package skeleton (composer manifest, PHPUnit config, CI matrix) is live. Module implementation lands in Waves 1–6 per [`openspec/changes/bootstrap-devkit-toolkit/tasks.md`](./openspec/changes/bootstrap-devkit-toolkit/tasks.md).
+> **Status: bootstrap-devkit-toolkit complete.** The package skeleton, module implementations, tests, docs, and OpenSpec artifacts are in place per [`openspec/changes/bootstrap-devkit-toolkit/tasks.md`](./openspec/changes/bootstrap-devkit-toolkit/tasks.md).
 
 ## Supported runtimes
 
@@ -24,7 +24,7 @@ A v2 with PHP `^8.1` floor will swap Monolog → 3.x, Flysystem → 3-only, and 
 composer require hmj1026/devkit
 ```
 
-On Laravel projects, the root `Devkit\Laravel\DevkitServiceProvider` is registered via `extra.laravel.providers` package auto-discovery. Module sub-providers are off by default; opt in per module via `config/devkit.php` once it's published in Wave 5.
+On Laravel projects, the root `Devkit\Laravel\DevkitServiceProvider` is registered via `extra.laravel.providers` package auto-discovery. Module sub-providers are enabled by default and can be disabled per module via `config/devkit.php`.
 
 ## Usage
 
@@ -43,20 +43,20 @@ $response = $gateway->request('GET', '/health');
 ```php
 use Devkit\Laravel\Http\Facades\HttpUri;
 
-$cdnUrl = HttpUri::cdn('images/logo.png');
+$assetUrl = HttpUri::url('/images/logo.png');
 ```
 
-Full module-level usage will land alongside each Wave's spec; see `openspec/changes/bootstrap-devkit-toolkit/specs/*/spec.md` for the design.
+Module-level usage lives in [`docs/`](./docs/) and the capability specs under `openspec/changes/bootstrap-devkit-toolkit/specs/*/spec.md`.
 
 ## Module map (14 capabilities)
 
 Framework-agnostic core (`Devkit\Core\*`, `Devkit\Database\*`, `Devkit\Http\*`, `Devkit\Storage\*`, `Devkit\Search\*`, `Devkit\Messaging\*`, `Devkit\Logging\*`, `Devkit\Ui\*`):
 
-- `devkit-enum` — Reflection-based PHP enum base class (PHP 5.6+ syntax-compatible).
+- `devkit-enum` — Reflection-based PHP enum base class for the PHP 7.3+ compatibility floor.
 - `devkit-http-foundation` — `AbstractHttpException` + JSON/Web envelope returns PSR-7 `ResponseInterface`.
 - `devkit-http-gateway` — Single-class Gateway around Guzzle with retry/backoff + log observer.
 - `devkit-asset-versioning` — PSR-16-cached asset URL versioning.
-- `devkit-file-uploader` — Director pattern over Flysystem 2/3 with dual visibility mapping.
+- `devkit-file-uploader` — Director pattern over Flysystem 1/2/3 with cross-version visibility mapping.
 - `devkit-elasticsearch` — ES 7.17 client with Index/Alias bases and raw array DSL (no Query Builder).
 - `devkit-sms-dispatch` — Driver contract + Manager + NullDriver + `AbstractHttpSmsDriver`.
 - `devkit-googlechat-logger` — Dual Monolog 2.9 / 3.x handler for Google Chat webhooks (version selected per Laravel cell).

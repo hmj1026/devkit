@@ -8,7 +8,7 @@ namespace Devkit\Http\Asset\Contract;
  * (CDN, app host, env-specific bucket) and return the bare origin
  * string (no trailing slash, no path component).
  *
- * Pure PHP — no Illuminate imports. Laravel adapter (Wave 5) supplies
+ * Pure PHP — no Illuminate imports. A Laravel adapter may supply
  * a concrete resolver wired to Illuminate\Http\Request / config.
  */
 interface HostResolverInterface

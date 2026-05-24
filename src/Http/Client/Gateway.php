@@ -23,8 +23,8 @@ use Psr\Http\Message\ResponseInterface;
  * APIs by extending Gateway and overriding $baseUri / $defaultHeaders or by
  * adding domain-specific convenience methods on the subclass.
  *
- * Pure PHP — no Illuminate imports. PHP 5.6-syntax-safe (no return-type
- * declarations, no null coalesce) per openspec/config.yaml.
+ * Pure PHP — no Illuminate imports. Production code stays within the package's
+ * PHP 7.3 compatibility floor.
  *
  * Design notes (documented inline for future maintainers):
  *

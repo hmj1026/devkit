@@ -8,7 +8,7 @@ namespace Devkit\Messaging\Sms\Contract;
  *
  * Provider-specific configuration (API key, endpoint, sender ID) is
  * supplied via the driver's constructor; the manager
- * (Devkit\Messaging\Sms\SmsManager, Wave 4) handles registration.
+ * (Devkit\Messaging\Sms\SmsManager) handles registration.
  *
  * Pure PHP — no Illuminate imports.
  */

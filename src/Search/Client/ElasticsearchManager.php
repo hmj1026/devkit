@@ -11,7 +11,7 @@ use Devkit\Search\Client\Exception\ConnectionNotRegisteredException;
  * the registry pattern used by SmsManager — pure PHP, no Laravel
  * container dependency, so non-Laravel consumers can wire it directly.
  *
- * The Laravel bridge in Wave 5 registers this as a singleton and
+ * The Laravel adapter registers this as a singleton and
  * pre-loads factories from `config('devkit.modules.search.connections')`.
  */
 class ElasticsearchManager

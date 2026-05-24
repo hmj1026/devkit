@@ -22,7 +22,7 @@
 **Non-Goals:**
 - 不支援 PHP < 7.3
 - 不採 elasticsearch-php 8.x（Elastic License v2 風險 + PHP 7.4 floor）
-- 不採 Monolog 3.x（PHP 8.1 floor 衝突）
+- 不強制採 Monolog 3.x-only（PHP 8.1 floor 衝突）；v1 需同時支援 Monolog 2.9 與 3.x
 - 不重寫 SqsFifo 為 PSR queue（無對應規範）
 - 不內建任何 concrete SMS provider driver
 - 不採 PHP 8.1 native enum（v1 受 7.3 floor 限制；v2 計畫換）
@@ -54,14 +54,15 @@
 
 **Trade-off**：複雜查詢消費端要寫 array DSL；換得 -53 檔 + 學習曲線消失。
 
-### D3. Monolog 鎖 ^2.9 + 修正 Google Chat handler bug
-**選擇**：`monolog/monolog ^2.9`
+### D3. Monolog 支援 ^2.9 / ^3.0 + 修正 Google Chat handler bug
+**選擇**：`monolog/monolog ^2.9 || ^3.0`
 
 **理由**：
-- Monolog 3.0+ 需 PHP 8.1+；保留 v1 PHP 7.3 floor 必須鎖 2.x
+- Monolog 3.0+ 需 PHP 8.1+；保留 v1 PHP 7.3 floor 必須仍可安裝 2.x
+- Laravel 10/11 會拉 Monolog 3，因此 package 需要 dual-version handler
 - 修正原 google-chat-log handler `use Monolog\LogRecord;` + `write(array $record)` 同時存在的 bug
 
-**Trade-off**：失去 Monolog 3 的 LogRecord readonly。v2 (PHP 8.1+) 可升級。
+**Trade-off**：Google Chat handler 需 runtime detect Monolog major 並分派到 M2/M3 concrete class。
 
 ### D4. Flysystem 1/2/3 三代並存
 **選擇**:`league/flysystem ^1.1 || ^2.0 || ^3.0`,FileDirector 接受跨版本的 storage 抽象(不直接 type-hint `FilesystemOperator`,而是包一層 internal adapter 處理 v1 `FilesystemInterface` vs v2/v3 `FilesystemOperator`)。
@@ -171,9 +172,9 @@
 
 ## Risks / Trade-offs
 
-- **依賴老化**：堅持 PHP 7.3 floor 等於拒絕 Monolog 3 / ES 8 / spatie/laravel-activitylog 4 / spatie/laravel-package-tools 1 等現代套件。對應策略：v2 明確規畫升至 PHP 8.1+ floor，採時序漸進；介面契約不變。
+- **依賴老化**：堅持 PHP 7.3 floor 等於無法採 Monolog 3-only / ES 8 / spatie/laravel-activitylog 4 / spatie/laravel-package-tools 1 等現代套件。對應策略：v2 明確規畫升至 PHP 8.1+ floor，採時序漸進；介面契約不變。
 - **重構 audit logging 風險**：來源 codebase 仰賴既有 trait 行為，重構為策略型抽象需完整迴歸測試。對應策略：在 legacy-shim change 中提供「舊行為 wrapper」。
-- **Flysystem 2/3 雙版本支援**：visibility 常數差異需做雙向映射。
+- **Flysystem 1/2/3 三版本支援**：visibility 常數與 write/read/delete API 差異需做跨版本映射。
 - **Laravel 6/7/8 為 EOL**：v1 仍支援這些是為了相容於 PHP 7.3 floor 的消費端；若消費端都在 Laravel 9+，可直接升 v2。
 - **SMS driver 整合曲線**：消費端首次接入需自寫 concrete driver。對應策略：詳細「自寫 driver 教學」+ fake provider 範例 + `AbstractHttpSmsDriver` 預先處理 retry / backoff / log observer。
 - **Repository pattern 遷移痛**：原 codebase 大量 Repository 呼叫，遷移要改寫；換得新專案不背技術債。
@@ -183,8 +184,8 @@
 
 當 PHP floor 升至 ^8.1：
 - AbstractEnum → 改為包 native `enum` + `EnumHelpers` trait
-- Monolog ^2.9 → ^3.x（LogRecord readonly）
-- Flysystem ^2.0 || ^3.0 → ^3.0 only
+- Monolog ^2.9 || ^3.0 → ^3.x only（LogRecord readonly）
+- Flysystem ^1.1 || ^2.0 || ^3.0 → ^3.0 only
 - 自建 audit logging → 包 `spatie/laravel-activitylog ^4.0` 為底層引擎
 - ServiceProvider boilerplate → 改用 `spatie/laravel-package-tools ^1.0`
 - 加入 native enum migration generator

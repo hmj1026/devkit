@@ -21,8 +21,8 @@ use SplFileInfo;
  * createFile() to return the appropriate Foundation type, and may
  * tighten validateMime() or generateStoredName() if needed.
  *
- * Pure PHP — no Illuminate imports. The Laravel bridge in Wave 5
- * wires this through the service container.
+ * Pure PHP — no Illuminate imports. The Laravel adapter wires this
+ * through the service container.
  */
 abstract class AbstractDirector implements DirectorContract
 {

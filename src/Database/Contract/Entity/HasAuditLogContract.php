@@ -4,7 +4,7 @@ namespace Devkit\Database\Contract\Entity;
 
 /**
  * Marker interface. Models implementing it trigger the audit-logging trait
- * (Devkit\Laravel\Audit\AbstractEntityChangeLogger, Wave 5) to capture
+ * (Devkit\Laravel\Audit\AbstractEntityChangeLogger) to capture
  * created / updated / deleting events and persist diffs via the configured
  * LogTargetContract.
  *

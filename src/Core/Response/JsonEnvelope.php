@@ -18,7 +18,7 @@ use Psr\Http\Message\StreamFactoryInterface;
  *           -> {"code":422,"message":"invalid input","data":{"field":"email"}}, 422
  *
  * Pure PHP — depends on PSR-7 + PSR-17 only. No Illuminate imports.
- * The Laravel adapter (Wave 5) converts these responses to
+ * The Laravel adapter converts these responses to
  * Illuminate\Http\JsonResponse when callers want Laravel-native return.
  */
 class JsonEnvelope

@@ -14,7 +14,7 @@ use Devkit\Messaging\Sms\Exception\SmsDriverNotRegisteredException;
  * which provider is active.
  *
  * No Illuminate\Foundation\Application dependency — pure PHP so it
- * works in non-Laravel contexts (the Laravel bridge in Wave 5 wires
+ * works in non-Laravel contexts (the Laravel adapter wires
  * this into the service container as a singleton).
  *
  * The 'null' driver is auto-registered at construction unless the

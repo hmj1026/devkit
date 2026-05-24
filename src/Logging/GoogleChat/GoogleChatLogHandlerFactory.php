@@ -11,7 +11,7 @@ use Psr\Http\Client\ClientInterface as Psr18ClientInterface;
  * to either the Monolog-2 or Monolog-3 concrete; this factory works
  * against the alias and so is itself version-agnostic.
  *
- * The Laravel custom-log-driver bridge (Wave 5) uses this to construct
+ * The Laravel custom-log-driver adapter uses this to construct
  * the handler from `config('logging.channels.googlechat')` without
  * caring about Monolog majors.
  */

@@ -44,3 +44,7 @@ Thumbs.db
 .claude/artifacts/
 .claude/settings.local.json
 .hyperweave/
+
+# OpenSpec working state — not design truth
+openspec/changes/**/tasks.md
+openspec/changes/archive/

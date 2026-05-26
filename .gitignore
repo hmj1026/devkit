@@ -2,6 +2,7 @@
 /vendor/
 composer.lock
 composer.phar
+auth.json
 
 # PHPUnit
 .phpunit.result.cache
@@ -12,14 +13,25 @@ composer.phar
 # Code style
 .php-cs-fixer.cache
 
+# Static analysis caches
+.phpstan.cache
+.psalm-cache/
+.rector-cache/
+.infection.cache
+
 # IDE
 .idea/
 .vscode/
 *.swp
 *.swo
 
+# Editor backups
+*.bak
+*~
+
 # OS
 .DS_Store
+._*
 Thumbs.db
 
 # Env
@@ -30,3 +42,5 @@ Thumbs.db
 # Local-only files
 .local/
 .claude/artifacts/
+.claude/settings.local.json
+.hyperweave/

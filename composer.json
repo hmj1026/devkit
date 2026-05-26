@@ -86,6 +86,27 @@
             "composer/package-versions-deprecated": true
         }
     },
+    "scripts": {
+        "test:core": "phpunit --testsuite=core",
+        "test:laravel": "phpunit --testsuite=laravel",
+        "test:unit": [
+            "@test:core",
+            "@test:laravel"
+        ],
+        "lint": "php-cs-fixer fix --dry-run --diff",
+        "lint:fix": "php-cs-fixer fix",
+        "matrix:install": "@php scripts/matrix-install.php",
+        "matrix:list": "@php scripts/matrix-install.php --list",
+        "matrix:test": [
+            "@matrix:install",
+            "@test:unit"
+        ]
+    },
+    "scripts-descriptions": {
+        "matrix:install": "Install deps for a CI matrix cell. Usage: composer matrix:install -- <php> <laravel> [--lowest|--dry-run]. Cleanup afterwards: git checkout -- composer.json composer.lock && composer install",
+        "matrix:list": "List every (php, laravel) cell declared in .github/workflows/tests.yml",
+        "matrix:test": "Install matrix cell then run both core+laravel testsuites. Usage: composer matrix:test -- <php> <laravel>"
+    },
     "minimum-stability": "stable",
     "prefer-stable": true
 }

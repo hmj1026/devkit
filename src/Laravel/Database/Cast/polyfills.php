@@ -8,5 +8,9 @@ namespace Illuminate\Contracts\Database\Eloquent {
 
             public function set($model, string $key, $value, array $attributes);
         }
+
+        if (! defined('DEVKIT_CASTS_ATTRIBUTES_POLYFILLED')) {
+            define('DEVKIT_CASTS_ATTRIBUTES_POLYFILLED', true);
+        }
     }
 }

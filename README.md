@@ -61,7 +61,7 @@ Framework-agnostic core (`Devkit\Core\*`, `Devkit\Database\*`, `Devkit\Http\*`, 
 - `devkit-sms-dispatch` — Driver contract + Manager + NullDriver + `AbstractHttpSmsDriver`.
 - `devkit-googlechat-logger` — Dual Monolog 2.9 / 3.x handler for Google Chat webhooks (version selected per Laravel cell).
 - `devkit-blade-helpers` — Trail (breadcrumb) + dual butschster/meta-tags 2.x / 3.x wrapper with weight-sorted ordering.
-- `devkit-eloquent-helpers` — `HasUuid` / `HasStatus` / `HasAuditLog` traits + Criteria + Casts.
+- `devkit-eloquent-helpers` — `HasUuid` / `HasStatus` / `HasAuditLog` traits + Criteria + Casts. Laravel 6 consumers must `use UsesClassCastCompatibility` on models with `EncryptedCast` / `HashedCast`.
 - `devkit-audit-logging` — Strategy-based entity change logger with Eloquent + Elasticsearch targets.
 - `devkit-sqs-fifo-queue` — Laravel-only SQS FIFO queue connector.
 

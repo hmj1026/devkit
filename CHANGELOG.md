@@ -5,11 +5,7 @@ All notable changes to `hmj1026/devkit` are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this
 project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-> No release has been tagged yet. The first tagged release will be `1.0.0`; the entries
-> below describe its scope. On tagging, rename the `[Unreleased]` heading to
-> `[1.0.0] - <date>`.
-
-## [Unreleased]
+## [1.0.0] - 2026-05-29
 
 ### Added
 
@@ -47,4 +43,4 @@ project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   support robustly. Tracked by the archived `harden-laravel-cast-polyfill` OpenSpec change
   (the `openspec/changes/archive/` directory is local-only / gitignored).
 
-[Unreleased]: https://github.com/hmj1026/devkit/commits/develop
+[1.0.0]: https://github.com/hmj1026/devkit/releases/tag/v1.0.0

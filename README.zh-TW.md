@@ -4,8 +4,7 @@
 
 [![Tests](https://github.com/hmj1026/devkit/actions/workflows/tests.yml/badge.svg)](https://github.com/hmj1026/devkit/actions/workflows/tests.yml)
 [![Latest Version](https://img.shields.io/packagist/v/hmj1026/devkit.svg)](https://packagist.org/packages/hmj1026/devkit)
-[![codecov](https://codecov.io/gh/hmj1026/devkit/branch/master/graph/badge.svg)](https://codecov.io/gh/hmj1026/devkit)
-[![PHP Version](https://img.shields.io/packagist/php-v/hmj1026/devkit.svg)](https://packagist.org/packages/hmj1026/devkit)
+[![PHP Version](https://img.shields.io/packagist/dependency-v/hmj1026/devkit/php.svg)](https://packagist.org/packages/hmj1026/devkit)
 [![License](https://img.shields.io/packagist/l/hmj1026/devkit.svg)](./LICENSE)
 
 一套通用、框架無關的 PHP 工具組，並提供選用的 Laravel 整合。將後端服務常用的建構元件 —— HTTP gateway、Elasticsearch 工具組、SMS 發送、檔案上傳、稽核日誌、Google Chat 錯誤日誌、meta tags、麵包屑 —— 整合成單一 Composer 套件。

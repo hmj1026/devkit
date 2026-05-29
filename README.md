@@ -4,8 +4,7 @@
 
 [![Tests](https://github.com/hmj1026/devkit/actions/workflows/tests.yml/badge.svg)](https://github.com/hmj1026/devkit/actions/workflows/tests.yml)
 [![Latest Version](https://img.shields.io/packagist/v/hmj1026/devkit.svg)](https://packagist.org/packages/hmj1026/devkit)
-[![codecov](https://codecov.io/gh/hmj1026/devkit/branch/master/graph/badge.svg)](https://codecov.io/gh/hmj1026/devkit)
-[![PHP Version](https://img.shields.io/packagist/php-v/hmj1026/devkit.svg)](https://packagist.org/packages/hmj1026/devkit)
+[![PHP Version](https://img.shields.io/packagist/dependency-v/hmj1026/devkit/php.svg)](https://packagist.org/packages/hmj1026/devkit)
 [![License](https://img.shields.io/packagist/l/hmj1026/devkit.svg)](./LICENSE)
 
 A generic, framework-agnostic PHP toolkit with optional Laravel integration. Bundles common building blocks for backend services — HTTP gateway, Elasticsearch toolkit, SMS dispatch, file uploader, audit logging, Google Chat error logger, meta tags, breadcrumb trail — into a single Composer package.

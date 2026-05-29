@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Coverage-only config for the CI `quality` job (PHP 8.2 / PHPUnit 11).
+
+  The primary phpunit.xml.dist uses the PHPUnit 9.x schema so a single file runs
+  across the 8.5 -> 11 matrix. But PHPUnit 11 does NOT honour the legacy
+  <coverage><include> element — it reports "No filter is configured, code
+  coverage will not be processed" and emits no report. Coverage source scoping
+  moved to the top-level <source> element in PHPUnit 10+. This file carries that
+  modern schema and is used ONLY for the coverage run (`-c phpunit.coverage.xml.dist`),
+  never by the matrix test job.
+-->
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+         bootstrap="vendor/autoload.php"
+         colors="true"
+         beStrictAboutTestsThatDoNotTestAnything="true"
+         cacheDirectory=".phpunit.cache">
+    <testsuites>
+        <testsuite name="core">
+            <directory suffix="Test.php">tests/Core</directory>
+            <directory suffix="Test.php">tests/Database</directory>
+            <directory suffix="Test.php">tests/Http</directory>
+            <directory suffix="Test.php">tests/Storage</directory>
+            <directory suffix="Test.php">tests/Search</directory>
+            <directory suffix="Test.php">tests/Messaging</directory>
+            <directory suffix="Test.php">tests/Logging</directory>
+            <directory suffix="Test.php">tests/Ui</directory>
+        </testsuite>
+        <testsuite name="laravel">
+            <directory suffix="Test.php">tests/Laravel</directory>
+        </testsuite>
+    </testsuites>
+    <source>
+        <include>
+            <directory suffix=".php">src</directory>
+        </include>
+        <exclude>
+            <directory>src/Laravel/Facades</directory>
+        </exclude>
+    </source>
+    <php>
+        <env name="APP_ENV" value="testing"/>
+        <env name="DB_CONNECTION" value="sqlite"/>
+        <env name="DB_DATABASE" value=":memory:"/>
+    </php>
+</phpunit>

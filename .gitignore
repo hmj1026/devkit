@@ -5,6 +5,7 @@ composer.phar
 auth.json
 
 # PHPUnit
+phpunit.xml
 .phpunit.result.cache
 .phpunit.cache/
 /build/

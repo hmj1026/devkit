@@ -101,7 +101,10 @@ jobs:
           php-version: '8.2'
           extensions: mbstring, intl, pdo_sqlite, fileinfo, json
           coverage: pcov
-          tools: composer:v2, phpstan:^2.1
+          # Bare tool name = latest stable (2.x). setup-php's tools: list takes
+          # an exact version or none — a caret constraint (phpstan:^2.1) is not
+          # parsed and yields a broken "Not Found" stub binary.
+          tools: composer:v2, phpstan
 
       - name: Disable composer audit blocking
         run: composer config audit.block-insecure false

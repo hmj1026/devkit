@@ -1,5 +1,7 @@
 # hmj1026/devkit
 
+**English** | [繁體中文](./README.zh-TW.md)
+
 [![Tests](https://github.com/hmj1026/devkit/actions/workflows/tests.yml/badge.svg)](https://github.com/hmj1026/devkit/actions/workflows/tests.yml)
 [![Latest Version](https://img.shields.io/packagist/v/hmj1026/devkit.svg)](https://packagist.org/packages/hmj1026/devkit)
 [![codecov](https://codecov.io/gh/hmj1026/devkit/branch/master/graph/badge.svg)](https://codecov.io/gh/hmj1026/devkit)
@@ -8,7 +10,7 @@
 
 A generic, framework-agnostic PHP toolkit with optional Laravel integration. Bundles common building blocks for backend services — HTTP gateway, Elasticsearch toolkit, SMS dispatch, file uploader, audit logging, Google Chat error logger, meta tags, breadcrumb trail — into a single Composer package.
 
-All 14 capabilities are implemented, tested across a 19-cell PHP × Laravel CI matrix, and documented. See the [CHANGELOG](./CHANGELOG.md) for release history and [CONTRIBUTING](./CONTRIBUTING.md) for the development workflow.
+Released as **v1.0.0** (stable). All 14 capabilities are implemented, tested across a 19-cell PHP × Laravel CI matrix, and documented. See the [CHANGELOG](./CHANGELOG.md) for release history and [CONTRIBUTING](./CONTRIBUTING.md) for the development workflow.
 
 ## Supported runtimes
 

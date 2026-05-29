@@ -32,6 +32,56 @@ class GoogleChatLogHandlerTest extends TestCase
         $this->assertInstanceOf(AbstractProcessingHandler::class, $handler);
     }
 
+    /**
+     * Polyfill branch coverage (Monolog 3 cell). The dispatcher in
+     * GoogleChatLogHandler.php aliases the canonical name to the M3 concrete
+     * when Monolog\LogRecord exists. Skipped on Monolog 2 cells, where the M2
+     * branch is exercised by the sibling test below. Together the two prove
+     * both branches across the CI matrix (neither runs in a single process).
+     */
+    public function testDispatcherResolvesToMonolog3Concrete()
+    {
+        if (!class_exists('Monolog\\LogRecord')) {
+            $this->markTestSkipped('Monolog 3 not installed; the M2 branch is active on this cell.');
+        }
+
+        $handler = new GoogleChatLogHandler(
+            'https://chat.example.com/webhook',
+            'myapp',
+            'test',
+            array(),
+            new RecordingHttpClient()
+        );
+
+        $this->assertInstanceOf(
+            'Devkit\\Logging\\GoogleChat\\Internal\\GoogleChatLogHandlerM3',
+            $handler
+        );
+    }
+
+    /**
+     * Polyfill branch coverage (Monolog 2 cell). Mirror of the M3 test above.
+     */
+    public function testDispatcherResolvesToMonolog2Concrete()
+    {
+        if (class_exists('Monolog\\LogRecord')) {
+            $this->markTestSkipped('Monolog 3 installed; the M3 branch is active on this cell.');
+        }
+
+        $handler = new GoogleChatLogHandler(
+            'https://chat.example.com/webhook',
+            'myapp',
+            'test',
+            array(),
+            new RecordingHttpClient()
+        );
+
+        $this->assertInstanceOf(
+            'Devkit\\Logging\\GoogleChat\\Internal\\GoogleChatLogHandlerM2',
+            $handler
+        );
+    }
+
     public function testErrorLevelDispatchesRedColoredCard()
     {
         $client = new RecordingHttpClient();

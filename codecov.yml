@@ -1,0 +1,21 @@
+# Codecov gate configuration.
+#
+# Coverage is measured on a single CI cell (PHP 8.2 / Laravel 11 / PHPUnit 11),
+# so the absolute number understates real coverage: the Monolog 2 / Flysystem 1
+# polyfill branches only execute on the older matrix cells and are proven there,
+# not in this report. The gate therefore guards against *regression* rather than
+# enforcing a high absolute floor.
+coverage:
+  status:
+    project:
+      default:
+        target: auto          # compare against the parent commit
+        threshold: 1%         # allow 1% slack; block larger regressions
+    patch:
+      default:
+        target: 80%           # new/changed lines should be well covered
+        threshold: 5%
+
+comment:
+  layout: "reach, diff, files"
+  require_changes: true

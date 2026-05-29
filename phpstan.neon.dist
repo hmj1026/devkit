@@ -1,0 +1,29 @@
+includes:
+    - phpstan-baseline.neon
+
+parameters:
+    level: 5
+    # Analyse against the compatibility floor so 7.4+ syntax in the
+    # framework-agnostic core is flagged (the dhpk php-7.4 reviewer is a proxy).
+    # The Monolog 3 / Flysystem 3 polyfill branches use 8.1+ symbols that read
+    # as "unknown" under the 7.3 floor; those cross-version artifacts are frozen
+    # in phpstan-baseline.neon (proven instead by the CI matrix tests).
+    phpVersion: 70300
+    # The core carries loose `@var object` docblocks (e.g. the Flysystem bridge);
+    # don't let PHPStan treat those as certain and emit always-true/false noise.
+    treatPhpDocTypesAsCertain: false
+    paths:
+        - src
+    excludePaths:
+        analyse:
+            # Laravel glue leans on facade/container/Eloquent magic that plain
+            # PHPStan can only resolve with larastan. Deferred to a follow-up
+            # change so the v1 baseline stays free of framework false positives.
+            - src/Laravel
+            # Monolog 2 vs 3 handler concretes. Each declares a write() signature
+            # matching ONE Monolog major; under the other major's parent it reads
+            # as a (non-ignorable) LSP violation. Only one is ever loaded at
+            # runtime (the dispatcher picks by class_exists). Their correctness is
+            # proven per-major by the CI matrix, not by single-version analysis.
+            - src/Logging/GoogleChat/Internal
+    tmpDir: .phpstan.cache

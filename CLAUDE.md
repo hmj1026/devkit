@@ -11,10 +11,12 @@ Multi-version PHP library: `^7.3 || ^8.0` × Laravel 6–11 × PHPUnit 8.5/9.6 �
 Pinned in `.claude/settings.local.json` `pluginConfigs.dhpk@dhpk.options.modules`:
 
 ```
-php-7.4, php-8.x, laravel-6..11, phpunit-9, library-author
+php-7.4, php-8.x, laravel-6, laravel-7, laravel-8, laravel-9, laravel-10, laravel-11, phpunit-9, phpunit-10, phpunit-11, library-author
 ```
 
-Six-color sentinel-driven reviewers (code / db / sec / frontend / doc / polyfill) fire automatically post-edit. dhpk's php-cs-fixer post-edit hook + pre-commit static-check gate are wired through the `php-7.4` module. The `library-author` module (**requires dhpk ≥ 0.3.0**; earlier cached versions silently drop it from `DHPK_ACTIVE_MODULES`) is the cross-cutting glue for multi-major-library work (polyfill auto-trigger, OpenSpec artifact guard, matrix-cell onboard, dual-testsuite map). If sentinels are not firing post-edit, verify the loaded dhpk cache version: `ls ~/.claude/plugins/cache/dhpk/dhpk/` — see memory `reference_dhpk_cache_caveat.md`.
+Six-color sentinel-driven reviewers (code / db / sec / frontend / doc / polyfill) fire automatically post-edit. dhpk's php-cs-fixer post-edit hook + pre-commit static-check gate are wired through the `php-7.4` module. The `library-author` module (**requires dhpk ≥ 0.3.0**; `learning_db_enabled` requires dhpk ≥ 0.6.0; earlier cached versions silently drop unknown options from `DHPK_ACTIVE_MODULES`) is the cross-cutting glue for multi-major-library work (polyfill auto-trigger, OpenSpec artifact guard, matrix-cell onboard, dual-testsuite map). If sentinels are not firing post-edit, verify the loaded dhpk cache version: `ls ~/.claude/plugins/cache/dhpk/dhpk/` — see memory `reference_dhpk_cache_caveat.md`.
+
+Coverage gap: dhpk has no `php-7.3` or `phpunit-8` module. The CI matrix has PHP 7.3 cells (Laravel 6/7) and PHPUnit `^8.5` cells; `php-7.4` and `phpunit-9` serve as the closest proxy reviewers.
 
 Project-only additions (do not belong in dhpk because they're devkit-shape-specific):
 
